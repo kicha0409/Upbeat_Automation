@@ -1,0 +1,49 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+
+# Logs
+logs/
+*.log
+log*/
+debug.log
+error.log
+
+# Output directories
+dist/
+build/
+coverage/
+.out/
+.tmp/
+
+# Editor and system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Playwright & Cucumber Reports
+reports/
+
+
+# Ignore Jest test cache
+jest/
+.cache/
+
+# Ignore Puppeteer/Playwright downloads
+.puppeteer/
+.playwright/
+
+# Ignore database files
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

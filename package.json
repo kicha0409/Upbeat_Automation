@@ -1,0 +1,33 @@
+{
+    "name": "PlayWrightAutomation",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "commonjs",
+    "scripts": {
+        "CucumberRegression": "npx cucumber-js --tags '@ExitReport' --retry 1 --exit --format html:cucumber-report.html",
+        "test:reporter": "npx cucumber-js ./features/Survey.feature --reporter=allure-playwright",
+        "test:survey": "npx cucumber-js ./features/Survey.feature --parallel 4 --format html:cucumber-report.html",
+        "test:reportportal": "npx cucumber-js ./features/Reports.feature --parallel 4 --exit --format json:reports/cucumber-report.json",
+        "report": "node ./reporter.js --format html:cucumber-report.html",
+        "test:execute": "npx cucumber-js ./features/Survey.feature --parallel 4 --format json:reports/cucumber-report.json",
+        "test-and-report": "npm run test:execute & npm run report",
+        "testReport": "npm run test:reportportal && npm run report",
+        "test:reportload": "npx cucumber-js ./features/ReportsLoad.feature --parallel 4 --exit --format json:reports/cucumber-report.json",
+        "testReportLoad": "npm run test:reportload & npm run report",
+        "cucumber": "cucumber-js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@cucumber/cucumber": "^10.3.2",
+        "@cucumber/pretty-formatter": "^1.0.0",
+        "@playwright/test": "^1.40.1",
+        "cucumber-html-reporter": "^7.1.1",
+        "playwright": "^1.40.1",
+        "winston": "^3.13.0",
+        "winston-daily-rotate-file": "^5.0.0",
+        "argparse": "2.0.1"
+    }
+}

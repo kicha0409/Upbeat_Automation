@@ -1,0 +1,102 @@
+When the user clicks on Exit report
+    When the user clicks on Principal report
+
+    | mailme2kicha+test-engonly@gmail.com       | Password@123     | EngOnly        |
+      | mailme2kicha+test-exit@gmail.com          | Password@123     | ExitOnly       |
+      | mailme2kicha+test-princ@gmail.com         | Password@123     | PrinOnly       |
+
+
+Faculty - 83
+Staff - 6
+Department - 22
+
+SY2024-2025 - 0
+Principals SY24-25 - 5
+
+admin building - 0
+academic services - 0
+AEP - 0
+
+- verify generating for bulk schools
+
+report user: mailme2kicha+test-pri@gmail.com
+
+logged into report on 11.56 am IST
+- opened engagement report, generated pdf
+- opened principal report at 12:16 pm
+- opened consultation report at 12:16 pm
+- logged out of the report
+- updated schools at 12:17 pm
+- updated category permission at 12:18 pm
+
+QA Consultation District
+
+mailme2kicha+test-allschool@gmail.com
+- logged in
+- engagement report
+- navigated to different tabs and the survey types
+- applied filter
+- applied comparison
+- print pdf
+- change cluster
+- visited couple of other schools
+- Principal survey
+- changed admin period
+- navigated to different tabs
+- Exit survey
+- changed admin period
+- navigated to different tabs
+- consultation notes
+- log out
+
+created on 3/7
+mailme2kicha+test-analytics@gmail.com
+
+logged in the the below users on 3/7
+mailme2kicha+test-engonly@gmail.com
+mailme2kicha+test-exit@gmail.com
+mailme2kicha+test-d1@gmail.com
+mailme2kicha+tets-d3@gmail.com
+
+Consult School I
+Fall 2024 - 7
+Winter 2024 - 5, Staff - 15
+Spring 2024 - 3, Staff - 8
+Summer 2024 - 10
+Winter 2023 - 3
+Fall 2023 - 5
+
+CPS
+Fall 2024
+Faculty - 
+Staff - 327
+Dept - 404
+
+Exit
+Faculty - 216
+Staff - 136
+
+Princiapl - 89
+
+Fwwdback
+Spring 2023 - 60
+Spring 2024 - 65
+Fall 2023 - 76
+
+user created on 3/11 - verify the analytics tomorrow
+Columbus Public School - mailme2kicha+test-clms@gmail.com - PASSED
+
+Other user
+QA Consultation District - mailme2kicha+test-exit@gmail.com
+QA Consultation District - mailme2kicha+test-princ@gmail.com
+
+QA Report Department I - https://qa.teachers.teachupbeat.net/?hash=26224529-fe41-11ef-946e-125fdd404245 - QA Report Test: Parent Administration (Parents SY24-25)
+
+QA Report Test: Parent Administration (Parents SY24-25) - QA Report School I - https://qa.teachers.teachupbeat.net?hash=26231e79-fe41-11ef-946e-125fdd404245	
+
+QA Report Test: Parent Administration (Parents SY24-25) - QA Report School V - https://qa.teachers.teachupbeat.net?hash=62b81610-fe41-11ef-946e-125fdd404245&lang=es
+
+staging:
+mailme2kicha+test-far@gmail.com - farmer
+mailme2kicha+test-gp@gmail.com - Greenville
+mailme2kicha+existing-4@gmail.com - Upbeat Test

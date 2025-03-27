@@ -1,0 +1,82 @@
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de3eb2d-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de4ffd1-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de2acbe-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de61265-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de73c0e-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de4ffd1-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de61265-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de2acbe-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de3eb2d-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de73c0e-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the Report
+ info: Step >> Launch the Report
+ info: Step >> Launch the Report
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de2acbe-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> the report user login the report portal "mailme2kicha+test-allschool@gmail.com", "Password@123"
+ info: Step >> the report user login the report portal "mailme2kicha+test-allschool@gmail.com", "Password@123"
+ info: Step >> the report user login the report portal "mailme2kicha+tst-add@gmail.com", "Password@123"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de3eb2d-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de4ffd1-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de61265-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de73c0e-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> the user navigates to Exit report
+ info: Step >> the dashboard should display with the report types "All"
+ info: Report Dashboard : Menu bar is ON
+ info: Report Dashboard : Header matched as expected
+ info: Report Dashboard : Menu labels matched as expected
+ info: Report Dashboard : Main tiles matched as expected
+ info: Step >> verify the Hide and Show button in the left pane
+ info: Engagement Report : Clicked on Engagement Report
+ info: Step >> the list of report tiles should display "QA Consultation district"
+ info: Report Dashboard : Hide and Show button is working as expected
+ info: Step >> the user clicks on Engagement report
+ info: Step >> the user navigates to Engagement report
+ info: Engagement Report : Clicked on Engagement Report
+ info: Step >> the list of report tiles should display "Atlanta"
+ info: Report Portal : Engagement tiles are displayed successfully
+ info: Step >> navigate to each tiles verify whether the report is loaded successfully
+ info: Step >> Verify the Engagement report home page "Fall 2024"
+ info: Cluster Name: Atlanta, Admin Period: Fall 2021, Survey Type: FACULTY
+ info: Cluster Name: Atlanta, Admin Period: Spring 2022, Survey Type: FACULTY
+ info: Change Cluster : Clicked on change cluster
+ info: Step >> Verify the Results page
+ info: Cluster Name: BARACK AND MICHELLE OBAMA ACADEMY, Admin Period: Fall 2021, Survey Type: FACULTY
+ info: Cluster Name: BARACK AND MICHELLE OBAMA ACADEMY, Admin Period: Spring 2022, Survey Type: FACULTY
+ info: Step >> Launch the Report
+ info: Step >> Launch the Report
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de2acbe-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the Report
+ info: Step >> the report user login the report portal "mailme2kicha+tst-add@gmail.com", "Password@123"
+ info: Step >> the report user login the report portal "mailme2kicha+test-allschool@gmail.com", "Password@123"
+ info: Step >> the report user login the report portal "mailme2kicha+test-allschool@gmail.com", "Password@123"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de3eb2d-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de4ffd1-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de61265-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de73c0e-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the Report
+ info: Step >> the report user login the report portal "mailme2kicha+tst-add@gmail.com", "Password@123"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de2acbe-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de3eb2d-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de4ffd1-0874-11f0-946e-125fdd404245"
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de61265-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Complete the initial steps
+ info: Step >> Launch the survey "https://qa.teachers.teachupbeat.net/?hash=5de73c0e-0874-11f0-946e-125fdd404245"
+ info: Step >> Complete the initial steps

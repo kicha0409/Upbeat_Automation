@@ -74,17 +74,22 @@ Then('navigates to Exit Report', { timeout: 100 * 1000 }, async function () {
 });
 
 Then('the list of report tiles should display {string}', { timeout: 100 * 1000 }, async function (distName) {
-    await reportPage.verifyReportTiles(distName);
+    await reportPage.verifyReportTiles(distName,this.reportType);
 });
 
 Then('navigate to each tiles verify whether the report is loaded successfully', { timeout: 1000 * 1000 }, async function () {
-    await reportPage.navigateToEachEngagementTile();
+    if(this.reportType.toLowerCase().includes('engagement'))
+        await reportPage.navigateToEachEngagementTile();
+    else if(this.reportType.toLowerCase().includes('exit'))
+        await reportPage.navigateToEachExitTile();
 });
 
 When('the user navigates to Engagement report', { timeout: 100 * 1000 }, async function () {
+    this.reportType = 'engagement';
     await reportPage.navigateToEnagementReport();
 });
 
 When('the user navigates to Exit report', { timeout: 100 * 1000 }, async function () {
+    this.reportType = 'exit';
     await reportPage.navigatesToExitReport();
 });

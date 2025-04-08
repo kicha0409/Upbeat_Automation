@@ -7,10 +7,11 @@ pnpm-debug.log*
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+/reports/**
+/logs/**
 
 # Logs
 *.log
-testResults.json
 
 # Output directories
 dist/
@@ -26,9 +27,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
-
-# Playwright & Cucumber Reports
-reports/**
+*.png
 
 # Ignore Jest test cache
 jest/

@@ -50,9 +50,11 @@ module.exports = {
         chkFemale: '//label[text()="Female"]',
         btnApply: '//*[text()="Apply"]',
         divEngagementTile: '//ul[contains(@class,"engagement")]/li',
+        divExitTile: '//ul[contains(@class,"exit")]/li',
         divEngagementBar: '//div[@class="engagement-bar"]',
+        divExitStdQuestions: '//div[contains(@class,"non-standard-questions")]',
         btnChangeCluster: '//button[contains(text(),"Change Cluster")]',
-        btnSurveyTypes: '//div[@class="reports"]/button'
+        btnSurveyTypes: '//div[@class="reports"]/button',
     },
 
     exitReport: {

@@ -19,6 +19,3 @@ Feature: Verify Reports
   Examples:
       | username                                  | password         | reportTypes    |   adminInterval   |
       | mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Fall 2024       |
-      
-
-  

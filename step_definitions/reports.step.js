@@ -82,6 +82,8 @@ Then('navigate to each tiles verify whether the report is loaded successfully', 
         await reportPage.navigateToEachEngagementTile();
     else if(this.reportType.toLowerCase().includes('exit'))
         await reportPage.navigateToEachExitTile();
+    else if(this.reportType.toLowerCase().includes('principal'))
+        await reportPage.navigateToEachPrincipalTile();
 });
 
 When('the user navigates to Engagement report', { timeout: 100 * 1000 }, async function () {
@@ -92,4 +94,9 @@ When('the user navigates to Engagement report', { timeout: 100 * 1000 }, async f
 When('the user navigates to Exit report', { timeout: 100 * 1000 }, async function () {
     this.reportType = 'exit';
     await reportPage.navigatesToExitReport();
+});
+
+When('the user navigates to School Leaders report', { timeout: 100 * 1000 }, async function () {
+    this.reportType = 'principal';
+    await reportPage.navigatesToPrincipalReport();
 });

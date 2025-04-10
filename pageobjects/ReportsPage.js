@@ -382,7 +382,13 @@ class ReportPage {
     async navigatesToExitReport() {
         await page.locator(el.survey.btnExitReport).click();
         await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
-        testReport.log('Engagement Report','Clicked on Engagement Report');
+        testReport.log('Exit Report','Clicked on Exit Report');
+    }
+
+    async navigatesToPrincipalReport() {
+        await page.locator(el.survey.btnPrincipalReport).click();
+        await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
+        testReport.log('School Leaders Report','Clicked on School Leaders Report');
     }
 
     async verifyReportTiles(distName, reportType) {
@@ -397,6 +403,11 @@ class ReportPage {
             this.engagementTileCount = await page.locator(el.engagementReport.divExitTile).count();
             expect(parseInt(this.engagementTileCount)).toBeGreaterThan(1);
             testReport.log("Report Portal","Exit tiles are displayed successfully");
+        }
+        else if(reportType.toLowerCase().includes('principal')) {
+            this.engagementTileCount = await page.locator(el.engagementReport.divPrincipalTile).count();
+            expect(parseInt(this.engagementTileCount)).toBeGreaterThanOrEqual(1);
+            testReport.log("Report Portal","School Leaders tiles are displayed successfully");
         }
     }
 
@@ -467,11 +478,22 @@ class ReportPage {
                 await page.locator(`${el.engagementReport.divExitTile}[${i}]/button`).click();
                 await page.waitForLoadState('load',{timeout: 60000});
                 const isDisabled = await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).getAttribute('disabled');
-                if(!isDisabled)
-                    await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).click();
-                await expect(page.locator(el.engagementReport.divExitStdQuestions)).toBeVisible({timeout: 30000});
+                if(!isDisabled) {
+                    try {
+                        await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).click();
+                    }
+                    catch(err) {
+                        testReport.log("Exit Report","Survey type button is enabled, so not clicked");
+                    }
+                }
+                const txtRecords = await page.locator(el.exitReport.lblLessThanFourRecords).innerText();
+                
+                
                     // navigate to all the admin periods in the page
                     let adminPeriodCount = await page.locator(el.engagementReport.drpIntervalOptions).count();
+                    if(!txtRecords.toLowerCase().includes('there must be four or more respondents in the current data set to show this report'))
+                        {
+                        await expect(page.locator(el.engagementReport.divExitStdQuestions)).toBeVisible({timeout: 30000});
                     for(let j=0;j<adminPeriodCount;j++) {
                         let surveyName = '';
                         let k;
@@ -503,6 +525,9 @@ class ReportPage {
                             break;
                         }
                     }
+                    }
+                    else
+                        testReport.log("Exit Report","Admin period doesn't have enough data to show");
                     try {
                         await page.locator(el.engagementReport.btnChangeCluster).click();
                         testReport.log("Change Cluster","Clicked on change cluster");
@@ -514,7 +539,86 @@ class ReportPage {
                         await page.locator(el.survey.btnEngagementReport).click();
                         await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
                     }
+                
+            }
+            
+            else
+                testReport.log(this.districtName,`${tileName} - doesn't have enough data to show`);
+            
+        }
+    }
+
+    async navigateToEachPrincipalTile() {
+        for(let i=1;i<=this.engagementTileCount;i++) {
+            let tileName = await page.locator(`${el.engagementReport.divPrincipalTile}[${i}]/button//*[contains(@class,'buttonlabel name')]`).innerText();
+            let adminPeriod;
+            if(await page.locator(`${el.engagementReport.divPrincipalTile}[${i}]/button/i`).isHidden()) {
+                await page.locator(`${el.engagementReport.divPrincipalTile}[${i}]/button`).click();
+                await page.waitForLoadState('load',{timeout: 60000});
+                const isDisabled = await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).getAttribute('disabled');
+                if(!isDisabled) {
+                    try {
+                        await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).click();
+                    }
+                    catch(err) {
+                        testReport.log("Exit Report","Survey type button is enabled, so not clicked");
+                    }
                 }
+                const txtRecords = await page.locator(el.exitReport.lblLessThanFourRecords).innerText();
+                
+                    // navigate to all the admin periods in the page
+                    let adminPeriodCount = await page.locator(el.engagementReport.drpIntervalOptions).count();
+                    if(!txtRecords.toLowerCase().includes('there must be four or more respondents in the current data set to show this report'))
+                        {
+                        await expect(page.locator(el.engagementReport.divPrincipalStdQuestions)).toBeVisible({timeout: 30000});
+                     for(let j=0;j<adminPeriodCount;j++) {
+                        let surveyName = '';
+                        let k;
+                        adminPeriod = await page.locator(`${el.engagementReport.drpIntervalOptions}`).nth(j).innerText();
+                        const drpAdminInterval = await page.locator(el.engagementReport.drpInterval);
+                        await drpAdminInterval.selectOption({index: j});
+                        await page.waitForLoadState('load',{timeout: 60000});
+                        try {
+                            await page.waitForTimeout(3000);
+                            await expect(page.locator(el.engagementReport.divEngagementBar)).toBeVisible({timeout: 30000});
+                            surveyName = await page.locator(`${el.engagementReport.btnSurveyTypes}[1]`).innerText();
+                            testReport.logPass(`District Name: ${this.districtName}`,`Cluster Name: ${tileName}, Admin Period: ${adminPeriod}, Survey Type: ${surveyName}`);
+                            let surveyCount = await page.locator(el.engagementReport.btnSurveyTypes).count();
+                                if(surveyCount > 1) {
+                                    for(k=2;k<=surveyCount;k++) {
+                                        await page.locator(`${el.engagementReport.btnSurveyTypes}[${k}]`).click();
+                                        await page.waitForLoadState('load',{timeout: 60000});
+                                        await page.waitForTimeout(3000);
+                                        await expect(page.locator(el.engagementReport.divEngagementBar)).toBeVisible({timeout: 30000});
+                                        surveyName = await page.locator(`${el.engagementReport.btnSurveyTypes}[${k}]`).innerText();
+                                        testReport.logPass(`District Name: ${this.districtName}`,`Cluster Name: ${tileName}, Admin Period: ${adminPeriod}, Survey Type: ${surveyName}`);
+                                    }
+                                }
+                        }
+                        catch(err) {
+                            if(!k) k=1;
+                            surveyName = await page.locator(`${el.engagementReport.btnSurveyTypes}[${k}]`).innerText();
+                            testReport.logFail(`District Name: ${this.districtName}`,`Cluster Name: ${tileName}, Admin Period: ${adminPeriod}, Survey Type: ${surveyName}`);
+                            break;
+                        }
+                    }
+                    }
+                    else
+                        testReport.log("Exit Report","Admin period doesn't have enough data to show");
+                    try {
+                        await page.locator(el.engagementReport.btnChangeCluster).click();
+                        testReport.log("Change Cluster","Clicked on change cluster");
+                        await page.waitForLoadState('load',{timeout: 60000});
+                        await expect(page.locator(el.survey.txtSearch)).toBeVisible();
+                    }
+                    catch(err) {
+                        await page.reload();
+                        await page.locator(el.survey.btnEngagementReport).click();
+                        await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
+                    }
+                
+            }
+            
             else
                 testReport.log(this.districtName,`${tileName} - doesn't have enough data to show`);
             

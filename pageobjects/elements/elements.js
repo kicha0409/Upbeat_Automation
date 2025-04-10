@@ -51,8 +51,10 @@ module.exports = {
         btnApply: '//*[text()="Apply"]',
         divEngagementTile: '//ul[contains(@class,"engagement")]/li',
         divExitTile: '//ul[contains(@class,"exit")]/li',
+        divPrincipalTile: '//ul[contains(@class,"principal")]/li',
         divEngagementBar: '//div[@class="engagement-bar"]',
         divExitStdQuestions: '//div[contains(@class,"non-standard-questions")]',
+        divPrincipalStdQuestions: '//div[contains(@class,"categories-table-header")]',
         btnChangeCluster: '//button[contains(text(),"Change Cluster")]',
         btnSurveyTypes: '//div[@class="reports"]/button',
     },
@@ -61,7 +63,8 @@ module.exports = {
         lblTitle: '//h1[text()="Exit Data Reports"]',
         btnDistrict: '//button[text()="District"]',
         btnDistrictTile: '//ul[contains(@class,"filtering exit")]/li[1]/button',
-        chrtExit: '//barchart'
+        chrtExit: '//barchart',
+        lblLessThanFourRecords: '//div[contains(@class,"categories-table-header")]/p[2]'
     },
 
     reportResultspage: {

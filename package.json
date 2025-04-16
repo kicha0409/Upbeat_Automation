@@ -15,7 +15,7 @@
         "testReport": "npm run test:reportportal && npm run report",
         "test:reportload": "npx cucumber-js ./features/ReportsLoad.feature --parallel 4 --exit --format json:reports/cucumber-report.json",
         "testReportLoad": "npm run test:reportload & npm run report",
-        "cucumber": "cucumber-js"
+        "cucumber": "cucumber-js --exit"
     },
     "keywords": [],
     "author": "",

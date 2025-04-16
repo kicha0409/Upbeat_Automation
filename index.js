@@ -24,4 +24,4 @@ if (tags.includes('and')) {
 }
 
 spawnSync(`npm run cucumber -- --tags "${args.tags}" & npm run report`,{ shell: true, stdio: 'inherit' });
-require('./reporter');
+// require('./reporter');

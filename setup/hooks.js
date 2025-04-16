@@ -48,6 +48,6 @@ After(async function (scenario) {
     await global.context?.close();
 });
 
-AfterAll(async () => {
-    await global.browser.close();
-});
+AfterAll(async function () {
+    await global.browser?.close();
+  });

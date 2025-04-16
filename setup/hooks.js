@@ -1,6 +1,6 @@
 const playwright = require('@playwright/test');
 
-const { Before, After,BeforeStep,AfterStep,Status } = require('@cucumber/cucumber')
+const { Before, After,BeforeStep,AfterStep,Status,AfterAll } = require('@cucumber/cucumber')
 const { setWorldConstructor } = require('@cucumber/cucumber');
 const CustomWorld = require('./CustomWorld');
 const { ReportUtils } = require('./reportUtils');
@@ -42,7 +42,12 @@ AfterStep(async function ({ result }) {
 After(async function (scenario) {
 
     const screenshot = await global.page.screenshot({ path: `screenshots/${scenario.pickle.name}.png`, fullPage: true });
-    global.page.close();
+    await global.page.close();
     this.attach(screenshot, 'image/png');
     this.attach(global.report);
+    await global.context?.close();
+});
+
+AfterAll(async () => {
+    await global.browser.close();
 });

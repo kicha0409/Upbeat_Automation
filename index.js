@@ -25,3 +25,6 @@ if (tags.includes('and')) {
 
 spawnSync(`npm run cucumber -- --tags "${args.tags}"`,{ shell: true, stdio: 'inherit' });
 // require('./reporter');
+
+const reportResult = spawnSync(`npm run report`, { shell: true, stdio: 'inherit' });
+process.exit(reportResult.status);

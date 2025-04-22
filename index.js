@@ -27,4 +27,3 @@ spawnSync(`npm run cucumber --exit -- --tags "${args.tags}"`,{ shell: true, stdi
 // require('./reporter');
 
 spawnSync(`npm run report`, { shell: true, stdio: 'inherit' });
-process.exit(0);

@@ -9,7 +9,7 @@
         "test:reporter": "npx cucumber-js ./features/Survey.feature --reporter=allure-playwright",
         "test:survey": "npx cucumber-js ./features/Survey.feature --parallel 4 --format html:cucumber-report.html",
         "test:reportportal": "npx cucumber-js ./features/Reports.feature --parallel 4 --exit --format json:reports/cucumber-report.json",
-        "report": "node ./reporter.js --format html:cucumber-report.html",
+        "report": "node ./reporter.js --exit --format html:cucumber-report.html",
         "test:execute": "npx cucumber-js ./features/Survey.feature --parallel 4 --format json:reports/cucumber-report.json",
         "test-and-report": "npm run test:execute & npm run report",
         "testReport": "npm run test:reportportal && npm run report",

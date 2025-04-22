@@ -10,7 +10,7 @@ try {
     output: 'reports/cucumberReport.html',
     reportSuiteAsScenarios: true,
     scenarioTimestamp: true,
-    launchReport: true,
+    launchReport: false,
     brandTitle: '<img src="./upbeat.png" width="35px" height="auto" "> Survey Completion Report',
     metadata: {
       'Survey completed at': new Date().toJSON().slice(0, 16).replace(':', '-')

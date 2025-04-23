@@ -23,7 +23,7 @@ if (tags.includes('and')) {
     args.tags = tags;
 }
 
-spawnSync(`npm run cucumber --exit -- --tags "${args.tags}"`,{ shell: true, stdio: 'inherit' });
+spawnSync(`npm run cucumber -- --tags "${args.tags}"`,{ shell: true, stdio: 'inherit' });
 // require('./reporter');
 
 spawnSync(`npm run report`, { shell: true, stdio: 'inherit' });

@@ -2,7 +2,7 @@
   "default": {
     "require": ["setup/hooks.js", "**/*step.js", "configs/config.js"],
     "paths": ["features/*.feature"],
-    "format": ["@cucumber/pretty-formatter", "json:./reports/testResults.json","json:./reports/cucumber-report.json"],
+    "format": ["@cucumber/pretty-formatter", "junit:./reports/testResults.xml","json:./reports/cucumber-report.json"],
     "strict": true,
     "backtrace": true,
     "parallel": 4

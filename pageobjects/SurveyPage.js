@@ -32,10 +32,11 @@ async surveyQues() {
     do {
        
         //dropdown type questions
-        if(await page.locator(el.survey.drpQuestion).isVisible()) {
+         if(await page.locator(el.survey.drpQuestion).isVisible()) {
             const choiceCount = await page.locator(el.survey.drpQuestionOption).count();
             const intNum = Math.floor(Math.random() * choiceCount);
-            await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
+            // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
+            await page.selectOption(el.survey.drpSelectOption,{ index: intNum});
             console.log("Question type: Dropdown");
         }
 

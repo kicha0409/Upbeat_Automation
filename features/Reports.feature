@@ -1,5 +1,6 @@
 Feature: Verify Reports
   
+  @Reports
   Scenario Outline: Verify Report login and dashboard
     Given Launch the Report
     When the report user login the report portal "<username>", "<password>"

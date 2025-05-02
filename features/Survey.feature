@@ -8,4 +8,5 @@ Feature: Attend Survey
 
    Examples:
     |  URL            | 
-    |  https://staging.teachers.teachupbeat.net?hash=7bba22ef-136e-11f0-946e-125fdd404245	  |
+    |  https://staging.teachers.teachupbeat.net/?hash=c10f8134-7514-11ef-adef-12e2e326eaff&lang=en&preview=true	  |
+  

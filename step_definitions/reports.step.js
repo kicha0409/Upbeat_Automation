@@ -100,3 +100,15 @@ When('the user navigates to School Leaders report', { timeout: 100 * 1000 }, asy
     this.reportType = 'principal';
     await reportPage.navigatesToPrincipalReport();
 });
+
+When('the user clicks on the consultation report', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnConsultationReport();
+});
+
+Then('the consultation notes should be in focus', { timeout: 100 * 1000 }, async function () {
+    await reportPage.verifyConsultationPageisLoaded();
+});
+
+Then('click on any of the schools in the list', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnConsultationSchool();
+});

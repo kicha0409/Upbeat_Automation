@@ -624,5 +624,24 @@ class ReportPage {
             
         }
     }
+
+    async clickOnConsultationReport() {
+        await page.waitForLoadState('load',{timeout: 60000});
+        await page.locator(el.survey.btnConsultation).first().click();
+        await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
+        testReport.log('Consultation Report','Clicked on Consultation Report');
+    }
+
+    async verifyConsultationPageisLoaded() {
+       await expect(page.locator('//h1')).toHaveText('Consultation Notes');
+       testReport.log('Consultation Report','Clicked on consultation school');              
+    }
+
+    async clickOnConsultationSchool() {
+       await page.locator(el.survey.divConsultSchool).click();
+       await page.waitForLoadState('load',{timeout: 60000}); 
+       await expect(el.consultationReport.drpSchool).toBeVisible();
+       testReport.log('Consultation Report','Consultation report is loaded successfully');
+    }
 }
 module.exports = {ReportPage};

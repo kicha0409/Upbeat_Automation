@@ -27,7 +27,8 @@ module.exports = {
         txtSearch: '#search',
         btnFirstReportTile: '#report-selection li:nth-of-type(1) button',
         btnPrint: 'button[class*="print"]',
-        btnDashboard: '//button//span[text()="Dashboard"]'
+        btnDashboard: '//button//span[text()="Dashboard"]',
+        divConsultSchool : '//ul[contains(@class,"engagement")]/li//*[text()="QA Consult School I"]'
         },
 
     engagementReport: {
@@ -57,7 +58,7 @@ module.exports = {
         divExitStdQuestions: '//div[contains(@class,"non-standard-questions")]',
         divPrincipalStdQuestions: '//div[contains(@class,"categories-table-header")]',
         btnChangeCluster: '//button[contains(text(),"Change Cluster")]',
-        btnSurveyTypes: '//div[@class="reports"]/button',
+        btnSurveyTypes: '//div[@class="reports"]/button'
     },
 
     exitReport: {
@@ -113,6 +114,10 @@ module.exports = {
         mainTile2: '[class="ul tiles"] li:nth-of-type(2) button',
         mainTile3: '[class="ul tiles"] li:nth-of-type(3) button',
         mainTile4: '[class="ul tiles"] li:nth-of-type(4) button'
+    },
+
+    consultationReport: {
+        drpSchool: '//select[@name="school-selection"]'
     }
     };
     

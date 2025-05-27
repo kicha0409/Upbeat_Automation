@@ -109,7 +109,7 @@ module.exports = {
         mnu2: '[class="ul"] li:nth-of-type(2) button',
         mnu3: '[class="ul"] li:nth-of-type(3) button',
         mnu4: '[class="ul"] li:nth-of-type(4) button',
-        mnu5: '[class="ul"] li:nth-of-type(5) button',
+        mnu5: '[class="ul"] li:nth-of-type(6) button',
         mainTile1: '[class="ul tiles"] li:nth-of-type(1) button',
         mainTile2: '[class="ul tiles"] li:nth-of-type(2) button',
         mainTile3: '[class="ul tiles"] li:nth-of-type(3) button',
@@ -117,7 +117,29 @@ module.exports = {
     },
 
     consultationReport: {
-        drpSchool: '//select[@name="school-selection"]'
-    }
+        drpInterval: 'select[name="interval"]',
+        drpSchool: '//select[@name="school-selection"]',
+        lblSchool: 'label[for="school-selection"]',
+        lblInterval: '//label[text()="Interval"]',
+        lblResponseRate: '//h3[text()="Response Rate"]',
+        lblResponseRateSurveyType: '//h3[text()="Response Rate"]/parent::div//div[@class="metric ng-star-inserted"]',
+        lblHeader: '//div[contains(@class,"title-container")]/h2',
+        lblDate: '//div[contains(@class,"title-container")]//*[@class="info"][1]',
+        lblAttendee: '//div[contains(@class,"title-container")]//*[@class="info"][2]',
+        lblOverAllEngagement: '//h3[text()="Overall Engagement"]',
+        lblOverAllEngagementSurveyType: '//h3[text()="Overall Engagement"]/parent::div//div[@class="stats-bar ng-star-inserted"]',
+        lblComparison: '//h3[text()="Comparison to District Average"]',
+        lblComparisonSurveyType: '//h3[text()="Comparison to District Average"]/parent::div/div',
+        lblAreaOfStrength: '//div[@class="summary-container"]/div[1]//h3',
+        lblAreaOfStrengthSurveyType: '//div[@class="summary-container"]/div[1]//div[@class="summary-content"]//div[@class="table-block num-2 ng-star-inserted"]',
+        lblAlreaOfStrengthFeatures: '//div[@class="summary-container"]/div[1]//div[@class="summary-content"]//div[@class="table-block num-2 ng-star-inserted"][1]/div',
+        lblAreaOfImprovement: '//div[@class="summary-container"]/div[2]//h3',
+        lblAreaOfImprovementSurveyType: '//div[@class="summary-container"]/div[2]//div[@class="summary-content"]//div[@class="table-block num-2 ng-star-inserted"]',
+        lblAction: '//div[@class="summary-container"]/div[3]//h3',
+        lblActionSurveyType: '//div[@class="summary-container"]/div[3]//div[@class="summary-content"]/h4',
+        lblRecommendedResources: '//h3[text()="Recommended Resources"]',
+        lblRecommendedResourcesSurveyType: '//h3[text()="Recommended Resources"]/parent::div//following-sibling::div/ul',
+        btnPrintPdf: '//button[text()="Print PDF"]'
+    }   
     };
     

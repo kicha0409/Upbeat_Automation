@@ -7,7 +7,7 @@ Feature: Verify Cosultation Report
     Then the dashboard should display with the report types "<reportTypes>"
     When the user clicks on the consultation report
     Then the consultation notes should be in focus
-    And click on any of the schools in the list
+    And click on any of the schools in the list "<adminInterval>"
     And verify the fields on the consultation report
     And verify the Area of Strength section
     And verify the Area of Improvement section
@@ -16,4 +16,4 @@ Feature: Verify Cosultation Report
         
   Examples:
       | username                                  | password         | reportTypes    |   adminInterval   |
-      | mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Fall 2024       |
+      |	mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Winter 2024     |

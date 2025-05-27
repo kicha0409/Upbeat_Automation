@@ -109,6 +109,26 @@ Then('the consultation notes should be in focus', { timeout: 100 * 1000 }, async
     await reportPage.verifyConsultationPageisLoaded();
 });
 
-Then('click on any of the schools in the list', { timeout: 100 * 1000 }, async function () {
+Then('click on any of the schools in the list {string}', { timeout: 100 * 1000 }, async function (adminPeriod) {
+    await reportPage.clickOnConsultationSchool(adminPeriod);
+});
+
+Then('verify the fields on the consultation report', { timeout: 100 * 1000 }, async function () {
     await reportPage.clickOnConsultationSchool();
+});
+
+Then('verify the Area of Strength section', { timeout: 100 * 1000 }, async function () {
+    await reportPage.areaOfStrength();
+});
+
+Then('verify the Area of Improvement section', { timeout: 100 * 1000 }, async function () {
+    await reportPage.areaOfImprovement();
+});
+
+Then('verify the Actions for School Leaders', { timeout: 100 * 1000 }, async function () {
+    await reportPage.actionsForSchoolLeaders();
+});
+
+Then('verify the Recommended Resources', { timeout: 100 * 1000 }, async function () {
+    await reportPage.recommendedResources();
 });

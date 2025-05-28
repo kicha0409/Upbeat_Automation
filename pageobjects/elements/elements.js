@@ -113,7 +113,7 @@ module.exports = {
         mainTile1: '[class="ul tiles"] li:nth-of-type(1) button',
         mainTile2: '[class="ul tiles"] li:nth-of-type(2) button',
         mainTile3: '[class="ul tiles"] li:nth-of-type(3) button',
-        mainTile4: '[class="ul tiles"] li:nth-of-type(4) button'
+        mainTile4: '[class="ul tiles"] li:nth-of-type(5) button'
     },
 
     consultationReport: {

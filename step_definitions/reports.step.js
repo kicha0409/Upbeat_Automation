@@ -114,7 +114,7 @@ Then('click on any of the schools in the list {string}', { timeout: 100 * 1000 }
 });
 
 Then('verify the fields on the consultation report', { timeout: 100 * 1000 }, async function () {
-    await reportPage.clickOnConsultationSchool();
+    await reportPage.verifyTheFieldsOnonsultationReport();
 });
 
 Then('verify the Area of Strength section', { timeout: 100 * 1000 }, async function () {

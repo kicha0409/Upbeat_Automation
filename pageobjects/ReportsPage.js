@@ -10,6 +10,7 @@ class ReportPage {
     constructor() {
     this.engagementTileCount = '';
     this.districtName = '';
+    this.surveyTypes = '';
     }
 
     async launchReportPortal() {
@@ -626,32 +627,48 @@ class ReportPage {
     }
 
     async clickOnConsultationReport() {
-        await page.waitForLoadState('load',{timeout: 60000});
+        await page.waitForLoadState('load',{timeout: 30000});
         await page.locator(el.survey.btnConsultation).first().click();
         await expect(page.locator(el.survey.txtSearch)).toBeVisible({timeout: 20000});
         testReport.log('Consultation Report','Clicked on Consultation Report');
     }
 
     async verifyConsultationPageisLoaded() {
-       await expect(page.locator('//h1')).toHaveText('Consultation Notes');
+       await expect(page.locator('//h1')).toHaveText('Consultation Notes',{timeout: 60000});
        testReport.log('Consultation Report','Clicked on consultation school');              
     }
 
     async clickOnConsultationSchool(adminPeriod) {
        await page.locator(el.survey.divConsultSchool).click();
        await page.waitForLoadState('load',{timeout: 60000}); 
-       await expect(el.consultationReport.drpSchool).toBeVisible({timeout: 60000});
-       // await page.waitForTimeout(5000);
+       await page.waitForTimeout(10000);
+       await expect(page.locator(el.consultationReport.drpSchool)).toBeVisible({timeout: 60000});
        testReport.log('Consultation Report','Consultation report is loaded successfully');
 
        // Select the admin period
        const interval = el.consultationReport.drpInterval;
-       await interval.selectOption({ label: adminPeriod });
+       // await interval.selectOption({ label: adminPeriod });
+
+       const options = await interval.locator('option');
+       const count = await options.count();
+
+        for (let k = 0; k < count; k++) {
+        const option = options.nth(k);
+        const label = await option.textContent();
+        let = dropDownValue;
+        if (label.trim() === adminPeriod) {
+            dropDownValue = await option.getAttribute('value');
+            break;
+        }
+        }
+
+       // dropDownValue = await page.getAttribute(`select[name="interval"] >> option:text(${adminPeriod})`,'value');
+       await page.locator(el.consultationReport.drpInterval).selectOption({ value: dropDownValue });
        await page.waitForLoadState('load',{timeout: 30000});
 
        // verify the drop down option is selected
        const selectedValue = await page.$eval(el.consultationReport.drpInterval, (select) => select.value);
-       expect(selectedValue).toMatch(adminPeriod);
+       expect(selectedValue).toMatch(dropDownValue);
        testReport.log('Consultation Report','Admin period is selected as expected');
     }
 
@@ -660,16 +677,16 @@ class ReportPage {
         await expect(page.locator(el.consultationReport.drpSchool)).toBeVisible();
         await expect(page.locator(el.consultationReport.lblInterval)).toHaveText('Interval');
         await expect(page.locator(el.consultationReport.lblResponseRate)).toHaveText('Response Rate');
-        const surveyTypes = page.locator(el.consultationReport.lblResponseRateSurveyType).count();
+        this.surveyTypes = page.locator(el.consultationReport.lblResponseRateSurveyType).count();
         let i;
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblResponseRateSurveyType}[${i}]//h4/*[@class="label"]`)).not.toBeEmpty();
             await expect(page.locator(`${el.consultationReport.lblResponseRateSurveyType}[${i}]//div[contains(@id,"bar-response-")]`)).toBeVisible();
         }
         testReport.log('Consultation Report','Response Rate section is displayed as expected');
         // verify overall engagement section
         await expect(page.locator(el.consultationReport.lblOverAllEngagement)).toHaveText('Overall Engagement');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblOverAllEngagementSurveyType}[${i}]//h4/*[@class="label"]`)).not.toBeEmpty();
             await expect(page.locator(`${el.consultationReport.lblOverAllEngagementSurveyType}[${i}]//h3[text()="Overall Engagement"]/parent::div//div[@class="stats-bar ng-star-inserted"][2]//h4[@class="h4"]/*[@class="value"]`)).not.toBeEmpty();
             await expect(page.locator(`${el.consultationReport.lblOverAllEngagementSurveyType}[${i}]//div[contains(@id,"bar-engagement-")]`)).toBeVisible();
@@ -677,7 +694,7 @@ class ReportPage {
         testReport.log('Consultation Report','Overll engagement section is displayed as expected');
         // verify compariosn to district average
         await expect(page.locator(el.consultationReport.lblComparison)).toHaveText('Comparison to District Average');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblComparisonSurveyType}[${i}]//h4`)).not.toBeEmpty();;
             await expect(page.locator(`${el.consultationReport.lblComparisonSurveyType}[${i}]//div[@id="district-comparison"]//*[contains(@class,'comparison ')]`)).not.toBeEmpty();
             await expect(page.locator(`${el.consultationReport.lblComparisonSurveyType}[${i}]//div[@id="district-comparison"]//*[contains(@id,"district-comp")]`)).toBeVisible();
@@ -687,8 +704,9 @@ class ReportPage {
 
     async areaOfStrength() {
         // verify Area of Strength
+        let i;
         await expect(page.locator(el.consultationReport.lblAreaOfStrength)).toHaveText('Areas of Strength');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblAreaOfStrengthSurveyType}[${i}]//h4`)).not.toBeEmpty();
             let areaOfStrengthFeatures = page.locator(el.consultationReport.lblAlreaOfStrengthFeatures).count();
             for(let j=1;j<=areaOfStrengthFeatures;j++)
@@ -702,8 +720,9 @@ class ReportPage {
        
     async areaOfImprovement() {
          // verify area of improvments
+         let i;
         await expect(page.locator(el.consultationReport.lblAreaOfImprovement)).toHaveText('Areas for Improvement');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblAreaOfImprovement}[${i}]//h4`)).not.toBeEmpty();
             let areaOfImprovementFeatures = page.locator(el.consultationReport.lblAreaOfImprovement).count();
             for(let j=1;j<=areaOfImprovementFeatures;j++)
@@ -717,8 +736,9 @@ class ReportPage {
 
     async actionsForSchoolLeaders() {
         // Verify actions for school leaders
+        let i;
         await expect(page.locator(el.consultationReport.lblAction)).toHaveText('Actions for School Leaders');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             await expect(page.locator(`${el.consultationReport.lblActionSurveyType}[${i}]//h4`)).not.toBeEmpty();
             let actionsFeatures = page.locator(`//div[@class="summary-container"]/div[3]//div[@class="summary-content"]/ol[${i}]/li`).count();
             for(let j=1;j<=actionsFeatures;j++)
@@ -731,8 +751,9 @@ class ReportPage {
 
     async recommendedResources() {
         // verify the Recommended resources
+        let i;
         await expect(page.locator(el.consultationReport.lblRecommendedResources)).toHaveText('Recommended Resources');
-        for(i=1;i<=surveyTypes;i++) {
+        for(i=1;i<=this.surveyTypes;i++) {
             let recommendedResourcesFeatures = page.locator(`//div[@class="summary-container"]/div[3]//div[@class="summary-content"]/ol[${i}]/li`).count();
             for(let j=1;j<=recommendedResourcesFeatures;j++)
             {

@@ -649,21 +649,21 @@ class ReportPage {
        const interval = el.consultationReport.drpInterval;
        // await interval.selectOption({ label: adminPeriod });
 
-       const options = await interval.locator('option');
+       const options = await page.locator('select[name="interval"] option');
        const count = await options.count();
-
+       let dropDownValue;
         for (let k = 0; k < count; k++) {
         const option = options.nth(k);
         const label = await option.textContent();
-        let = dropDownValue;
         if (label.trim() === adminPeriod) {
-            dropDownValue = await option.getAttribute('value');
+            dropDownValue = await page.locator(`//select[@name="interval"]//option[${k+1}]`).getAttribute('value');
             break;
         }
         }
 
        // dropDownValue = await page.getAttribute(`select[name="interval"] >> option:text(${adminPeriod})`,'value');
        await page.locator(el.consultationReport.drpInterval).selectOption({ value: dropDownValue });
+       await page.waitForTimeout(5000);
        await page.waitForLoadState('load',{timeout: 30000});
 
        // verify the drop down option is selected

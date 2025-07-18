@@ -12,5 +12,5 @@ Then('Complete the initial steps', async function () {
 });  
 
 Then('Start responding the survey questions', {timeout: 3 * 80000}, async function () {
-    await surveyPage.surveyQues();
+    await surveyPage.surveyQuesUpdated();
 });

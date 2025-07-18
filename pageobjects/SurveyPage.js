@@ -31,17 +31,8 @@ async surveyQues() {
     
     do {
        
-        //dropdown type questions
-         if(await page.locator(el.survey.drpQuestion).isVisible()) {
-            const choiceCount = await page.locator(el.survey.drpQuestionOption).count();
-            const intNum = Math.floor(Math.random() * choiceCount);
-            // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
-            await page.selectOption(el.survey.drpSelectOption,{ index: intNum});
-            console.log("Question type: Dropdown");
-        }
-
        // radio type questions
-        else if(await page.locator(el.survey.lblRadioQuesText).isVisible()) {
+        if(await page.locator(el.survey.lblRadioQuesText).isVisible()) {
             const choiceCount = await page.locator(el.survey.lblRadioQuesOptions).count();
             const intNum = this.getRandomInt(1,choiceCount);
             if(intNum!=0)
@@ -75,16 +66,16 @@ async surveyQues() {
             let questType;
             switch(strClassName) {
                 case 'fieldset ng-scope normal center':
-                    questType = await page.locator('//div[@class="fieldset ng-scope normal center"]/ul/li'+'['+intNum+']');
+                    questType = await page.locator('(//div[@class="fieldset ng-scope normal center"])[1]//ul/li'+'['+intNum+']');
                     break;
                 case 'fieldset ng-scope center normal':
-                    questType = await page.locator('//div[@class="fieldset ng-scope center normal"]/ul/li'+'['+intNum+']');
+                    questType = await page.locator('(//div[@class="fieldset ng-scope center normal"])[1]//ul/li'+'['+intNum+']');
                     break;    
                 case 'fieldset ng-scope tall center':
-                    questType = await page.locator('//div[@class="fieldset ng-scope tall center"]/ul/li'+'['+intNum+']');
+                    questType = await page.locator('(//div[@class="fieldset ng-scope tall center"])[1]//ul/li'+'['+intNum+']');
                     break;
                 default:
-                    questType = await page.locator('//div[@class="fieldset ng-scope normal center"]/ul/li'+'['+intNum+']');
+                    questType = await page.locator('(//div[@class="fieldset ng-scope normal center"])[1]//ul/li'+'['+intNum+']');
                     break;
             }
 
@@ -103,6 +94,123 @@ async surveyQues() {
             console.log("Question type: Dropdown");
         } */
 
+        //dropdown type questions
+         else if(await page.locator(el.survey.drpQuestion).isVisible()) {
+            const choiceCount = await page.locator(el.survey.drpQuestionOption).count();
+            const intNum = Math.floor(Math.random() * choiceCount);
+            // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
+            await page.selectOption(el.survey.drpSelectOption,{ index: intNum});
+            console.log("Question type: Dropdown");
+        }
+
+        await page.waitForTimeout(1000);
+        
+     } while(await page.locator(el.survey.btnSaveAndSubmit).isHidden());
+
+    await page.locator(el.survey.btnSaveAndSubmit).click();
+    await page.waitForTimeout(5000);
+    await page.waitForSelector(el.survey.imgChkmrkCompleted,{state: 'visible'});
+    console.log("------------------ END OF SURVEY -------------------");
+}
+
+async surveyQuesUpdated() {
+    
+    let Ques = await page.innerText(el.survey.lblTotalQues);
+    let quesArray = Ques.split("/");
+    let totalQues = quesArray[1].split(" ");
+    await page.waitForTimeout(2000);
+    let ele = page.locator(el.survey.frmSurvey);
+    let cName;
+    cName = await ele.evaluate(element => element.className);
+    let quesNo = 1;
+    do {
+       // text area question
+        if(quesNo === 1) {
+            if(await page.locator(el.survey.txtQuestionFirst).isVisible()) {
+                await page.fill(el.survey.txtQuestionFirst,"PW Test - QA Comments");
+                try {
+                    if(await page.locator(el.survey.btnTxtareaSubmit).isVisible()) {
+                    await page.locator(el.survey.btnTxtareaSubmit).click();
+                    console.log("Question type: Textarea");
+                    }
+                }
+                catch(error) {
+                    await page.locator(el.survey.btnTextareacontinue).click();
+                    console.log("Question type: Textarea");
+                }
+            }
+
+            // option type questions
+            else if(await page.locator(el.survey.optQuestionFirst).isVisible()) {
+                const choiceCount = await page.locator(el.survey.optQuestionFirstCount).count();
+                const intNum = this.getRandomInt(1,choiceCount);
+                
+                if(intNum!=0)
+                    await page.locator(`${el.survey.optQuestionFirstCount}[${intNum}]`).click();
+                else
+                    await page.locator(`${el.survey.optQuestionFirstCount},[1]`).click();
+                console.log("Question type: Choice Type");
+            }
+
+            //dropdown type questions
+            else if(await page.locator(el.survey.drpQuestionFirst).isVisible()) {
+                const choiceCount = await page.locator(el.survey.drpQuestionFirstCount).count();
+                const intNum = Math.floor(Math.random() * choiceCount);
+                // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
+                await page.selectOption(el.survey.drpQuestionFirst,{ index: intNum});
+                console.log("Question type: Dropdown");
+            }
+
+            quesNo = 2;
+        }
+
+        else if(quesNo === 2) {
+            if(await page.locator(el.survey.txtQuestionSecond).isVisible()) {
+                await page.fill(el.survey.txtQuestionSecond,"PW Test - QA Comments");
+                try {
+                    if(await page.locator(el.survey.btnTxtareaSubmit).isVisible()) {
+                    await page.locator(el.survey.btnTxtareaSubmit).click();
+                    console.log("Question type: Textarea");
+                    }
+                }
+                catch(error) {
+                    await page.locator(el.survey.btnTextareacontinue).click();
+                    console.log("Question type: Textarea");
+                }
+            }
+
+            // option type questions
+            else if(await page.locator(el.survey.optQuestionSecond).isVisible()) {
+                const choiceCount = await page.locator(el.survey.optQuestionSecondCount).count();
+                const intNum = this.getRandomInt(1,choiceCount);
+                
+                if(intNum!=0)
+                    await page.locator(`${el.survey.optQuestionSecondCount}[${intNum}]`).click();
+                else
+                    await page.locator(`${el.survey.optQuestionSecondCount},[1]`).click();
+                console.log("Question type: Choice Type");
+            }
+
+            //dropdown type questions
+            else if(await page.locator(el.survey.drpQuestionSecond).isVisible()) {
+                const choiceCount = await page.locator(el.survey.drpQuestionSecondCount).count();
+                const intNum = Math.floor(Math.random() * choiceCount);
+                // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
+                await page.selectOption(el.survey.drpQuestionSecond,{ index: intNum});
+                console.log("Question type: Dropdown");
+            }
+
+        }
+       // radio type questions
+        /* if(await page.locator(el.survey.lblRadioQuesText).isVisible()) {
+            const choiceCount = await page.locator(el.survey.lblRadioQuesOptions).count();
+            const intNum = this.getRandomInt(1,choiceCount);
+            if(intNum!=0)
+                await page.click(el.survey.lblRadioQuesOptions+'['+intNum+']');
+            else
+                await page.click(el.survey.lblRadioQuesOptions+'[1]');
+                console.log("Question type: Radio");
+        } */
         await page.waitForTimeout(1000);
         
      } while(await page.locator(el.survey.btnSaveAndSubmit).isHidden());

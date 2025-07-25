@@ -123,6 +123,8 @@ async surveyQuesUpdated() {
     let cName;
     cName = await ele.evaluate(element => element.className);
     let quesNo = 1;
+    let matQues = 1;
+    let previousQuesmatrix = false;
     do {
        // text area question
         if(quesNo === 1) {
@@ -138,6 +140,7 @@ async surveyQuesUpdated() {
                     await page.locator(el.survey.btnTextareacontinue).click();
                     console.log("Question type: Textarea");
                 }
+                previousQuesmatrix = false;
             }
 
             // option type questions
@@ -150,6 +153,7 @@ async surveyQuesUpdated() {
                 else
                     await page.locator(`${el.survey.optQuestionFirstCount},[1]`).click();
                 console.log("Question type: Choice Type");
+                previousQuesmatrix = false;
             }
 
             //dropdown type questions
@@ -159,9 +163,47 @@ async surveyQuesUpdated() {
                 // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
                 await page.selectOption(el.survey.drpQuestionFirst,{ index: intNum});
                 console.log("Question type: Dropdown");
+                previousQuesmatrix = false;
             }
 
-            quesNo = 2;
+            // matrix question
+            else if(await page.locator(el.survey.matQuestionFirst).isVisible()) {
+                // count the number of question
+                const matQuesCount = await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"]`).count();
+                // count the options
+                let i;
+                const matOptionscount = await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][1]//div[@class="matrix-option-cell ng-scope"]`).count();
+                for (i=1;i<=matQuesCount;i++) {  
+                    const intNum = this.getRandomInt(1,matOptionscount);
+                    if(intNum!=0)
+                        await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][${i}]//div[@class="matrix-option-cell ng-scope"][${intNum}]`).click();
+                    else
+                        await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][${i}]//div[@class="matrix-option-cell ng-scope"][1]`).click();
+                }
+                const isPageNumbervisible = await page.locator('(//h3[@class="matrix-stem ng-binding"])[1]/following-sibling::div').isVisible();
+                if(!isPageNumbervisible) {
+                    previousQuesmatrix = true;
+                }
+                else {
+                    let quesNumber = await page.locator('(//h3[@class="matrix-stem ng-binding"])[1]/following-sibling::div').innerText();
+                    let findQuestNumber = quesNumber.split(' ');
+                    if(Number(findQuestNumber[1]) === Number(findQuestNumber[3]))
+                    previousQuesmatrix = true;
+                    else
+                    previousQuesmatrix = false;
+                    const btnName = await page.locator(el.survey.btnmatrixNext).innerText();
+                    if(btnName.includes('Continue')) {
+                        await page.locator(`(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`).click();
+                        matQues = matQues + 1;
+                    }
+                    else
+                    await page.locator(`(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`).click();  
+                }
+            }
+            if(previousQuesmatrix)
+                quesNo = 1;
+            else
+                quesNo = 2;
         }
 
         else if(quesNo === 2) {
@@ -177,6 +219,7 @@ async surveyQuesUpdated() {
                     await page.locator(el.survey.btnTextareacontinue).click();
                     console.log("Question type: Textarea");
                 }
+                previousQuesmatrix = false;
             }
 
             // option type questions
@@ -189,6 +232,7 @@ async surveyQuesUpdated() {
                 else
                     await page.locator(`${el.survey.optQuestionSecondCount},[1]`).click();
                 console.log("Question type: Choice Type");
+                previousQuesmatrix = false;
             }
 
             //dropdown type questions
@@ -198,8 +242,47 @@ async surveyQuesUpdated() {
                 // await page.selectOption('//div[@class="fieldset ng-scope normal center"]//select',{ index: intNum});
                 await page.selectOption(el.survey.drpQuestionSecond,{ index: intNum});
                 console.log("Question type: Dropdown");
+                previousQuesmatrix = false;
             }
 
+            // matrix question
+            else if(await page.locator(el.survey.matQuestonSecond).isVisible()) {
+                // count the number of question
+                const matQuesCount = await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"]`).count();
+                // count the options
+                let i;
+                const matOptionscount = await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][1]//div[@class="matrix-option-cell ng-scope"]`).count();
+                for (i=1;i<=matQuesCount;i++) {  
+                    const intNum = this.getRandomInt(1,matOptionscount);
+                    if(intNum!=0)
+                        await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][${i}]//div[@class="matrix-option-cell ng-scope"][${intNum}]`).click();
+                    else
+                        await page.locator(`(//div[contains(@class,"matrix-grid options-")])[${matQues}]//div[@class="matrix-row ng-scope"][${i}]//div[@class="matrix-option-cell ng-scope"][1]`).click();
+                }
+                const isPageNumbervisible = await page.locator('(//h3[@class="matrix-stem ng-binding"])[1]/following-sibling::div').isVisible();
+                if(!isPageNumbervisible) {
+                    previousQuesmatrix = true;
+                }
+                else {
+                    let quesNumber = await page.locator('(//h3[@class="matrix-stem ng-binding"])[1]/following-sibling::div').innerText();
+                    let findQuestNumber = quesNumber.split(' ');
+                    if(Number(findQuestNumber[1]) === Number(findQuestNumber[3]))
+                    previousQuesmatrix = true;
+                    else
+                    previousQuesmatrix = false;
+                    const btnName = await page.locator(el.survey.btnmatrixNext).innerText();
+                    if(btnName.includes('Continue')) {
+                        await page.locator(`(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`).click();
+                        matQues = matQues + 1;
+                    }
+                    else
+                    await page.locator(`(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`).click();  
+                }
+            }
+            if(previousQuesmatrix)
+                quesNo = 1;
+            else
+                quesNo = 2;
         }
        // radio type questions
         /* if(await page.locator(el.survey.lblRadioQuesText).isVisible()) {

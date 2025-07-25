@@ -43,6 +43,11 @@ module.exports = {
         optQuestionFirstCount:'(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[1]/parent::legend/following-sibling::ul/li',
         optQuestionSecondCount:'(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[2]/parent::legend/following-sibling::ul/li',
         btnTextareacontinue: '//form[@id="form-desktop-view"]//div[@class="fieldset ng-scope normal center"]//*[contains(@class,"text-buttons")]//button',
+        matQuestionFirst: '(//form[@id="form-desktop-view"]//div[@class="matrix-desktop ng-scope"])[1]',
+        matQuestonSecond: '(//form[@id="form-desktop-view"]//div[@class="matrix-desktop ng-scope"])[2]',
+        matOptions: '(//div[contains(@class,"matrix-grid options-")])[1]//div[@class="matrix-row ng-scope"][1]//div[@class="matrix-option-cell ng-scope"]',
+        matQuestions: '(//div[contains(@class,"matrix-grid options-")])[1]//div[@class="matrix-row ng-scope"]',
+        btnmatrixNext: '(//div[contains(@class,"matrix-pagination")])[1]//button[contains(@class,"matrix-next")]'
         },
 
     engagementReport: {

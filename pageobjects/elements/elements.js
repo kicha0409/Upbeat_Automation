@@ -47,7 +47,8 @@ module.exports = {
         matQuestonSecond: '(//form[@id="form-desktop-view"]//div[@class="matrix-desktop ng-scope"])[2]',
         matOptions: '(//div[contains(@class,"matrix-grid options-")])[1]//div[@class="matrix-row ng-scope"][1]//div[@class="matrix-option-cell ng-scope"]',
         matQuestions: '(//div[contains(@class,"matrix-grid options-")])[1]//div[@class="matrix-row ng-scope"]',
-        btnmatrixNext: '(//div[contains(@class,"matrix-pagination")])[1]//button[contains(@class,"matrix-next")]'
+        btnmatrixNext: '(//div[contains(@class,"matrix-pagination")])[1]//button[contains(@class,"matrix-next")]',
+        icnProfile: '//button[@aria-label="My Profile"]'
         },
 
     engagementReport: {
@@ -159,6 +160,24 @@ module.exports = {
         lblRecommendedResources: '//h3[text()="Recommended Resources"]',
         lblRecommendedResourcesSurveyType: '//h3[text()="Recommended Resources"]/parent::div//following-sibling::div/ul',
         btnPrintPdf: '//button[text()="Print PDF"]'
-    }   
+    },
+    
+    districtPresentation: {
+        mdlPresentation: 'modal #district-presentation-configuration',
+        page1DistrictName: '//label[@for="district-name"]',
+        page1DistrictNameTxt: '//input[@id="district-name"]',
+        page1ReportName: '//label[@for="report-title"]',
+        page1ReportNameTxt: '//input[@id="report-title"]',
+        page1CoachName: '//label[@for="coach-name"]',
+        page1CoachNameTxt: '//input[@id="coach-name"]',
+        page1ManagerName: '//label[@for="program-manager"]',
+        page1ManagerNameTxt: '//input[@id="program-manager"]',
+        page1PreviousBtn: '//button[@class="btn btn-secondary"]',
+        page1NextBtn: '//button[contains(@class,"btn btn-primary")]',
+        page2ScreenDesc: '//p[@class="screen-description"]',
+        page2ItemSelected: '//div[@class="selection-summary"]',
+        page2FeedbackQues: '//div[contains(@class,"feedback-item divider")]',
+        page2FeedbackQuesResponse: '//div[contains(@class,"feedback-item divider")][1]//following-sibling::div[contains(@class,"feedback-item")][1]/div[2]'
+    }
     };
     

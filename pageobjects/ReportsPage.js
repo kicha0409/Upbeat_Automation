@@ -762,6 +762,6 @@ class ReportPage {
         }
         testReport.log('Consultation Report','Recommended resources section is displayed as expected');
     }
-    }
+}
 
 module.exports = {ReportPage};

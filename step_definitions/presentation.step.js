@@ -26,3 +26,7 @@ Then('verify the cover Slide page', { timeout: 100 * 1000 }, async function () {
 Then('verify Principal Feedback page', { timeout: 100 * 1000 }, async function () {
     await presentationPage.verifyPrincipalFeedback();
 });
+
+Then('verify Goals and Focus areas', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.verifyGoalsAndFocus();
+});

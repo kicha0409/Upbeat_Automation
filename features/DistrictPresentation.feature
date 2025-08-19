@@ -11,6 +11,8 @@ Feature: Verify and Generate District Presentation
     Then the presentation popup should display
     And verify the cover Slide page
     And verify Principal Feedback page
+    And verify Goals and Focus areas
+    And verify Areas of Growth
     
   Examples:
     | username                          | password         | 

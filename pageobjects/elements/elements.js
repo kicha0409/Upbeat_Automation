@@ -177,7 +177,20 @@ module.exports = {
         page2ScreenDesc: '//p[@class="screen-description"]',
         page2ItemSelected: '//div[@class="selection-summary"]',
         page2FeedbackQues: '//div[contains(@class,"feedback-item divider")]',
-        page2FeedbackQuesResponse: '//div[contains(@class,"feedback-item divider")][1]//following-sibling::div[contains(@class,"feedback-item")][1]/div[2]'
+        page2FeedbackQuesResponse: '//div[contains(@class,"feedback-item divider")][1]//following-sibling::div[contains(@class,"feedback-item")][1]/div[2]',
+        page3GoalDesc: '//p[@class="screen-description"]',
+        page3TxtArea: '(//textarea[@class="goal-input"])',
+        page3BtnAddGoal: '//button[@class="btn-add-goal"]',
+        page3TipsHeader: '//div[@class="goal-tips"]/h4',
+        page3TipsDesc: '//div[@class="goal-tips"]/ul',
+        page3BtnRemoveGoal: '(//button[@class="btn-remove"])',
+        page4GoalDesc: '//p[@class="screen-description"]',
+        page4ChartIcon: '//i[@class="fa fa-chart-line"]',
+        page4EmptyState: '//div[contains(@class,"empty-state")]',
+        page4AddGrowthArea: '//button[@class="btn-add-tile"]',
+        page4BtnRemoveTile: '//button[@class="btn-remove"]',
+        page4TileHeader: '//div[@class="tile-header"]'
+
     }
     };
     

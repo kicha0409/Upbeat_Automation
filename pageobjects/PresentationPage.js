@@ -125,6 +125,29 @@ class PresentationPage {
     async verifyAreasOfGrowth() {
         await expect(page.getByText('Example Slide Layout')).toBeVisible();
         await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page4EmptyState)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page4GoalDesc)).toHaveText("Configure the areas of growth and focus slides for your presentation. Each tile represents a slide showing category comparisons.");
+        await page.locator(el.districtPresentation.page4AddGrowthArea).click();
+        await expect(page.locator(el.districtPresentation.page4GrowthArea)).toBeVisible({timeout: 5000});
+        await expect(page.locator(el.districtPresentation.page4DrpSurveyType)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page4DrpAreaType)).toBeVisible();
+        const categoriesCount = await page.locator(el.districtPresentation.page4Categories).count();
+        let randomCategory = this.getRandomInt(categoriesCount);
+        await page.locator(`${el.districtPresentation.page4Categories}[${randomCategory}]`).click();
+        await expect(page.locator(`${el.districtPresentation.page4Categories}[${randomCategory}]/i[@class="fa fa-check-square"]`)).toBeVisible({timeout: 5000});
+        randomCategory = this.getRandomInt(categoriesCount);
+        await page.locator(`${el.districtPresentation.page4Categories}[${randomCategory}]`).click();
+        await expect(page.locator(`${el.districtPresentation.page4Categories}[${randomCategory}]/i[@class="fa fa-check-square"]`)).toBeVisible({timeout: 5000});
+        testReport.log('Page IV - Areas of Growth','Verified the page areas of growth');
+        await page.locator(el.districtPresentation.page1NextBtn).click();
+        await expect(page.getByText('Highlights')).toBeVisible();
+        testReport.log('Page V - Highlights','Navigated to page 5 successfully');
+    }
+
+    // Returns a random integer between min and max (inclusive)
+    getRandomInt(max) {
+        max = Math.floor(max);  // Round down max
+        return Math.floor(Math.random() * (max)) + min;
     }
 }
 

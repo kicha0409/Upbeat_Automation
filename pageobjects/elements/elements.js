@@ -188,9 +188,10 @@ module.exports = {
         page4ChartIcon: '//i[@class="fa fa-chart-line"]',
         page4EmptyState: '//div[contains(@class,"empty-state")]',
         page4AddGrowthArea: '//button[@class="btn-add-tile"]',
-        page4BtnRemoveTile: '//button[@class="btn-remove"]',
-        page4TileHeader: '//div[@class="tile-header"]'
-
+        page4GrowthArea: '//div[@class="tile-header"]',
+        page4DrpSurveyType: '(//div[@class="config-row"])[1]//select',
+        page4DrpAreaType: '(//div[@class="config-row"])[2]//select',
+        page4Categories: '//div[@class="categories-grid"]/div'
     }
     };
     

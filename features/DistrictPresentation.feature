@@ -13,6 +13,8 @@ Feature: Verify and Generate District Presentation
     And verify Principal Feedback page
     And verify Goals and Focus areas
     And verify Areas of Growth
+    And verify Highlights
+    And verify Action Plan
     
   Examples:
     | username                          | password         | 

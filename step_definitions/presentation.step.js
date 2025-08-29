@@ -30,3 +30,15 @@ Then('verify Principal Feedback page', { timeout: 100 * 1000 }, async function (
 Then('verify Goals and Focus areas', { timeout: 100 * 1000 }, async function () {
     await presentationPage.verifyGoalsAndFocus();
 });
+
+Then('verify Areas of Growth', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.verifyAreasOfGrowth();
+});
+
+Then('verify Highlights', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.verifyHighlight();
+});
+
+Then('verify Action Plan', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.verifyActionPlan();
+});

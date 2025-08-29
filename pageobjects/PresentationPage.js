@@ -144,6 +144,55 @@ class PresentationPage {
         testReport.log('Page V - Highlights','Navigated to page 5 successfully');
     }
 
+    async verifyHighlight() {
+        await expect(page.getByText('Example Slide Layout')).toBeVisible();
+        await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page5GoalDesc)).toHaveText('Configure highlight slides showing specific domain and question performance. Each tile creates a slide with selected domain/question combinations.');
+        await expect(page.locator(el.districtPresentation.page5StarIcon)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page5EmptyState)).toHaveText('No highlights configured yetClick "Add Highlight" to create your first slide');
+        await page.locator(el.districtPresentation.page5Btn).click();
+        // verify highlight is added
+        await expect(page.locator(el.districtPresentation.page5NewHighlight)).toBeVisible({timeout: 5000});
+        // delete and readd the highlight
+        await page.locator(el.districtPresentation.page5Btnminus).click();
+        await expect(page.locator(el.districtPresentation.page5NewHighlight)).toBeHidden({timeout: 5000});
+        await expect(page.locator(el.districtPresentation.page5DrpSurveyType)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page5DrpAreaType)).toBeVisible();
+        await page.locator(el.districtPresentation.page5BtnAddRow).click();
+        await expect(page.locator(el.districtPresentation.page5DrpDomain)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page5DrpQuestion)).toBeVisible();
+        const domaincount = page.locator(el.districtPresentation.page5DrpDomainOption).count();
+        const quescount = page.locator(el.districtPresentation.page5DrpQuestionOption).count();
+        const dropdownDomain = page.locator(el.districtPresentation.page5DrpDomain);
+        await dropdownDomain.selectOption({index: this.getRandomInt(domaincount)});
+        const dropdownQues = page.locator(el.districtPresentation.page5DrpQuestion);
+        await dropdownQues.selectOption({index: this.getRandomInt(quescount)}); 
+        testReport.log('Page V - Highlights','Verified the page highlights');
+        await page.locator(el.districtPresentation.page1NextBtn).click();
+        await expect(page.getByText('Action Plan')).toBeVisible();
+        testReport.log('Page VI - Action Plan','Navigated to page 6 successfully');
+    }
+
+    async verifyActionPlan() {
+        await expect(page.getByText('Example Slide Layout')).toBeVisible();
+        await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page6GoalDesc)).toHaveText('Define your action items for the next school year. These will guide implementation and help track progress toward your goals.');
+        await expect(page.locator(el.districtPresentation.page6ButtonRemoveAction)).toHaveAttribute('disabled','true');
+        // add new action
+        await page.locator(el.districtPresentation.page6ButtonAction).click();
+        await expect(page.locator(el.districtPresentation.page6TextArea)).toHaveCount(2);
+        // delete the action and add text on first actiom
+        await page.locator(el.districtPresentation.page6ButtonRemoveAction).click();
+        await expect(page.locator(el.districtPresentation.page6TextArea)).toHaveCount(1);
+        await page.locator(el.districtPresentation.page6TextArea).fill('Dummy text on actions');
+        // verify action items section is visible
+        await expect(page.locator(el.districtPresentation.page6ActionGuidelines)).toBeVisible();
+        testReport.log('Page VI - Action Plan','Verified the Action plan');
+        await page.locator(el.districtPresentation.page1NextBtn).click();
+        await expect(page.getByText('Featured Schools')).toBeVisible();
+        testReport.log('Page VII - Featured Schools','Navigated to page 7 successfully');
+    }
+
     // Returns a random integer between min and max (inclusive)
     getRandomInt(max) {
         max = Math.floor(max);  // Round down max

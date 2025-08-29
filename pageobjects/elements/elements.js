@@ -191,7 +191,26 @@ module.exports = {
         page4GrowthArea: '//div[@class="tile-header"]',
         page4DrpSurveyType: '(//div[@class="config-row"])[1]//select',
         page4DrpAreaType: '(//div[@class="config-row"])[2]//select',
-        page4Categories: '//div[@class="categories-grid"]/div'
+        page4Categories: '//div[@class="categories-grid"]/div',
+        page5GoalDesc: '//p[@class="screen-description"]',
+        page5StarIcon: '//i[@class="fa fa-star"]',
+        page5EmptyState: '//div[contains(@class,"empty-state")]',
+        page5BtnAddTile: '//button[@class="btn-add-tile"]',
+        page5NewHighlight: '//div[@class="tile-header"]',
+        page5BtnRemove: '//button[@class="btn-remove"]',
+        page5DrpSurveyType: '(//div[@class="config-row"])[1]//select',
+        page5DrpAreaType: '(//div[@class="config-row"])[2]//select',
+        page5BtnAddRow: '//button[@class="btn-add-row"]',
+        page5DrpDomain: '//div[@class="row-selects"]/select[1]',
+        page5DrpDomainOption: '//div[@class="row-selects"]/select[1]/option',
+        page5DrpQuestion: '//div[@class="row-selects"]/select[2]',
+        page5DrpQuestionOption: '//div[@class="row-selects"]/select[2]/option',
+        page5Btnminus: '//i[@class="fa fa-minus"]',
+        page6GoalDesc: '//p[@class="screen-description"]',
+        page6ButtonAction: '//button[@class="btn-add-action"]',
+        page6ButtonRemoveAction: '//button[@class="btn-remove"]',
+        page6ActionGuidelines: '//div[@class="action-guidelines"]',
+        page6TextArea: '//textarea[@class="action-input"]'
     }
-    };
+};
     

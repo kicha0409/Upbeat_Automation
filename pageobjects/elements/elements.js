@@ -210,7 +210,25 @@ module.exports = {
         page6ButtonAction: '//button[@class="btn-add-action"]',
         page6ButtonRemoveAction: '//button[@class="btn-remove"]',
         page6ActionGuidelines: '//div[@class="action-guidelines"]',
-        page6TextArea: '//textarea[@class="action-input"]'
+        page6TextArea: '//textarea[@class="action-input"]',
+        page7GoalDesc: '//p[@class="screen-description"]',
+        page7EmptyState: '//div[contains(@class,"empty-state")]',
+        page7BtnAddTile: '//button[@class="btn-add-tile"]',
+        page7SelectionTips: '//div[@class="selection-tips"]',
+        page7TxtKeyStrategy: '//div[@class="config-row"][1]//input',
+        page7DrpSchool: '//div[@class="config-row"][2]//select',
+        page7DrpDomain: '//div[@class="config-row"][3]//select',
+        page7DrpQuestion: '//div[@class="config-row"][4]//select',
+        page7BtnRemove: '//button[@class="btn-remove"]',
+        page7DivTile: '//div[@class="tile-header"]',
+        page8GoalDesc: '//p[@class="screen-description"]',
+        page8PrincipalStartDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][1]//div[@class="date-inputs"]/div[@class="date-field"][1]/input',
+        page8PrincipalEndDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][1]//div[@class="date-inputs"]/div[@class="date-field"][2]/input',
+        page8SupervisorStartDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][2]//div[@class="date-inputs"]/div[@class="date-field"][1]/input',
+        page8SupervisorEndDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][2]//div[@class="date-inputs"]/div[@class="date-field"][2]/input',
+        page8CabinetStartDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][3]//div[@class="date-inputs"]/div[@class="date-field"][1]/input',
+        page8CabinetEndDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][3]//div[@class="date-inputs"]/div[@class="date-field"][2]/input',
+        page8BtnGeneratePres: '//button[contains(@class,"btn btn-success")]'
     }
 };
     

@@ -15,6 +15,7 @@ Feature: Verify and Generate District Presentation
     And verify Areas of Growth
     And verify Highlights
     And verify Action Plan
+    And verify Featured Schools
     
   Examples:
     | username                          | password         | 

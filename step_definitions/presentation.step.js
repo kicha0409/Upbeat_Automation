@@ -8,7 +8,11 @@ Then('navigate to Engagement Report', { timeout: 100 * 1000 }, async function ()
 });
 
 Then('click on District tab', { timeout: 100 * 1000 }, async function () {
-    await presentationPage.navigateToEngagementReport();
+    await presentationPage.clickOnDistrictTab();
+});
+
+Then('select the district', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.clickOnDistrictTile();
 });
 
 When('the coach user clicks on District Presentation link', { timeout: 100 * 1000 }, async function () {
@@ -16,7 +20,7 @@ When('the coach user clicks on District Presentation link', { timeout: 100 * 100
 });
 
 Then('the presentation popup should display', { timeout: 100 * 1000 }, async function () {
-    await presentationPage.clickOnDistrictPresentation();
+    await presentationPage.verifyPresentationPopup();
 });
 
 Then('verify the cover Slide page', { timeout: 100 * 1000 }, async function () {
@@ -40,5 +44,9 @@ Then('verify Highlights', { timeout: 100 * 1000 }, async function () {
 });
 
 Then('verify Action Plan', { timeout: 100 * 1000 }, async function () {
+    await presentationPage.verifyActionPlan();
+});
+
+Then('verify Featured Schools', { timeout: 100 * 1000 }, async function () {
     await presentationPage.verifyActionPlan();
 });

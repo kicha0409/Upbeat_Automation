@@ -21,9 +21,8 @@ class PresentationPage {
 
     // click on district tab
     async clickOnDistrictTab() {
-        await page.getByText('District').click();
-        const isDitrictClicked = await page.getByText('District').getAttribute('disabled');
-        expect(isDitrictClicked).toBeTruthy();
+        await page.locator('//button[text()="District"]').click();
+        await expect (page.locator('//button[text()="District"]')).toHaveAttribute('disabled');
         testReport.log('Report Page','Distirct tab is in focus');
     }
 
@@ -38,7 +37,7 @@ class PresentationPage {
     // click on the District presentation link
     async clickOnDistrictPresentation() {
         // get the current admin period
-        const optionValue = await page.locator('//select[@name="interval"]').getAttribute('value');
+        const optionValue = await page.locator('//select[@name="interval"]').evaluate(el => el.value);
         this.adminPeriod = await page.innerText(`//select[@name="interval"]/option[@value="${optionValue}"]`);
         this.districtName = await page.innerText('//div[@class="report-info"]//h2');
         // click on district presentation
@@ -63,16 +62,16 @@ class PresentationPage {
         await expect(page.locator(el.districtPresentation.page1ReportName)).toHaveText('Report Title');
         await expect(page.locator(el.districtPresentation.page1CoachName)).toHaveText('Coach Name');
         await expect(page.locator(el.districtPresentation.page1ManagerName)).toHaveText('Program Manager Name');
-        await expect(page.locator(el.districtPresentation.page1DistrictNameTxt)).toHaveValue(`${this.adminPeriod} Survey Report`);
-        await expect(page.locator(el.districtPresentation.page1ReportNameTxt)).toHaveValue(`${this.districtName}`);
+        await expect(page.locator(el.districtPresentation.page1DistrictNameTxt)).toHaveValue(`${this.districtName}`);
+        await expect(page.locator(el.districtPresentation.page1ReportNameTxt)).toHaveValue(`${this.adminPeriod} Survey Report`);
         await expect(page.locator(el.districtPresentation.page1CoachNameTxt)).toBeEmpty();
         await expect(page.locator(el.districtPresentation.page1ManagerNameTxt)).toBeEmpty();
         // verify the next and previous buttons
-        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).toHaveAttribute('disabled', 'true');
-        await expect(page.locator(el.districtPresentation.page1NextBtn)).toHaveAttribute('disabled', 'false');
+        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).toHaveAttribute('disabled');
+        await expect(page.locator(el.districtPresentation.page1NextBtn)).not.toHaveAttribute('disabled');
         testReport.log('Page I - Cover Slide','Page content are matched as expected');
         await page.locator(el.districtPresentation.page1NextBtn).click();
-        await expect(page.getByText('Principal Feedback')).toBeVisible();
+        await expect(page.locator('//h2[text()="Principal Feedback"]')).toBeVisible();
         testReport.log('Page II - Principal Feedback','Navigated to page 2 successfully');
     }
 
@@ -82,16 +81,17 @@ class PresentationPage {
         await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
         await expect(page.locator(el.districtPresentation.page2ScreenDesc)).toHaveText("Select the feedback items you'd like to include in your presentation. You can choose multiple items that best represent the principal feedback from the most recent feedback survey administration.");
         await expect(page.locator(el.districtPresentation.page2ItemSelected)).toHaveText("0items selected");
-        await expect(page.locator(el.districtPresentation.page2FeedbackQues)).toHaveCount(1, { greaterThanOrEqual: true });
+        const feedbackQues = await page.locator(el.districtPresentation.page2FeedbackQues).count();
+        expect(feedbackQues).toBeGreaterThanOrEqual(1);
         await expect(page.locator(el.districtPresentation.page2FeedbackQuesResponse)).toBeVisible();
         // select the first response on the first question
         await page.locator(el.districtPresentation.page2FeedbackQuesResponse).click();
-        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).toHaveAttribute('disabled', 'false');
-        await expect(page.locator(el.districtPresentation.page1NextBtn)).toHaveAttribute('disabled', 'false');
+        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).not.toHaveAttribute('disabled');
+        await expect(page.locator(el.districtPresentation.page1NextBtn)).not.toHaveAttribute('disabled');
         // click on next button
         testReport.log('Page II - Principal Feedback','Page content are matched as expected');
         await page.locator(el.districtPresentation.page1NextBtn).click();
-        await expect(page.getByText('Goals and Focus Areas')).toBeVisible();
+        await expect(page.locator('//h2[text()="Goals and Focus Areas"]')).toBeVisible();
         testReport.log('Page III - Goals and Focus Areas','Navigated to page 3 successfully');
     }
 
@@ -104,8 +104,8 @@ class PresentationPage {
         await expect(page.locator(el.districtPresentation.page3BtnAddGoal)).toBeVisible();
         await expect(page.locator(el.districtPresentation.page3TipsHeader)).toHaveText('Tips for effective goals:');
         await expect(page.locator(el.districtPresentation.page3TipsDesc)).toHaveText('Be specific and measurableAlign with district prioritiesMake them achievable within the school year');
-        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).toHaveAttribute('disabled', 'false');
-        await expect(page.locator(el.districtPresentation.page1NextBtn)).toHaveAttribute('disabled', 'false');
+        await expect(page.locator(el.districtPresentation.page1PreviousBtn)).not.toHaveAttribute('disabled');
+        await expect(page.locator(el.districtPresentation.page1NextBtn)).not.toHaveAttribute('disabled');
         testReport.log('Page III - Goals and Focus Areas','Page content are matched as expected');
         // verify adding and deleting the goals
         await page.locator(el.districtPresentation.page3BtnAddGoal).click();
@@ -193,10 +193,60 @@ class PresentationPage {
         testReport.log('Page VII - Featured Schools','Navigated to page 7 successfully');
     }
 
+    async verifyFeaturedSchools() {
+        await expect(page.getByText('Example Slide Layout')).toBeVisible();
+        await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page7GoalDesc)).toHaveText('Select schools to feature in your presentation. For each school, choose a specific domain and question to highlight their unique strengths or areas of focus.');
+        await expect(page.locator(el.districtPresentation.page7EmptyState)).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page7BtnAddTile)).click();
+        // verify the school 
+        await expect(page.locator(el.districtPresentation.page7DivTile)).toBeVisible({timeout: 5000});
+        await page.locator(el.districtPresentation.page7BtnRemove).click();
+        await expect(page.locator(el.districtPresentation.page7DivTile)).toBeHidden({timeout: 5000});
+        // add new school and update the details
+        await expect(page.locator(el.districtPresentation.page7BtnAddTile)).click();
+        await page.locator(el.districtPresentation.page7TxtKeyStrategy).fill('Test Strategy');
+        await page.selectOption(el.districtPresentation.page7DrpSchool, { index: 2 });
+        await page.selectOption(el.districtPresentation.page7DrpDomain, { index: 2 });
+        await page.selectOption(el.districtPresentation.page7DrpQuestion, { index: 2 });
+        testReport.log('Page VIII - Next Steps','Verified the features school');
+        await page.locator(el.districtPresentation.page1NextBtn).click();
+        await expect(page.getByText('Next Steps')).toBeVisible();
+        testReport.log('Page VIII - Next Steps','Navigated to page 8 successfully');
+    }
+
+    async verifyNextSteps() {
+        await expect(page.getByText('Example Slide Layout')).toBeVisible();
+        await expect(page.locator('//img[@class="preview-image"]')).toBeVisible();
+        await expect(page.locator(el.districtPresentation.page8GoalDesc)).toHaveText('Set review dates for different stakeholder groups. These dates will help coordinate implementation efforts and ensure timely follow-up across all levels.');
+        // enter preview date
+        await page.locator(el.districtPresentation.page8PrincipalStartDate).fill(this.getFutureDate(5));
+        await page.locator(el.districtPresentation.page8PrincipalEndDate).fill(this.getFutureDate(10));
+        // enter supervisor date
+        await page.locator(el.districtPresentation.page8SupervisorStartDate).fill(this.getFutureDate(15));
+        await page.locator(el.districtPresentation.page8SupervisorEndDate).fill(this.getFutureDate(20));
+        // enter cabinet date
+        await page.locator(el.districtPresentation.page8CabinetStartDate).fill(this.getFutureDate(25));
+        await page.locator(el.districtPresentation.page8CabinetEndDate).fill(this.getFutureDate(30));
+        // click on Generate Presentation
+        await page.locator(el.districtPresentation.page8BtnGeneratePres).click();
+    }
+
     // Returns a random integer between min and max (inclusive)
     getRandomInt(max) {
         max = Math.floor(max);  // Round down max
         return Math.floor(Math.random() * (max)) + min;
+    }
+
+    getFutureDate(daysToAdd) {
+        let today = new Date();
+        today.setDate(today.getDate() + daysToAdd);
+
+        let month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        let day = String(today.getDate()).padStart(2, '0');
+        let year = today.getFullYear();
+
+        return `${month}/${day}/${year}`;
     }
 }
 

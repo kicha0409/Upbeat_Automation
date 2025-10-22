@@ -20,3 +20,17 @@ Feature: Verify Reports
   Examples:
       | username                                  | password         | reportTypes    |   adminInterval   |
       | mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Fall 2024       |
+
+
+  @ReportAccess
+  Scenario Outline: Verify the user reports with different access
+  Given Launch the Report
+  When the report user login the report portal "<username>", "<password>"
+  Then verify the report types on dashboard "<reportTypes>"
+  #And verify the active report types on left pane
+  #And verify the active report types on hidding the report titles
+
+  # report types - All, Engagement, Exit, SchoolLeader, Parent, Consultation - more than one report can be given using , separater. not case sensitive (eg: EXIT, consultation)
+  Examples:
+      | username                               | password         | reportTypes        |   
+      | mailme2kicha+test-farm@gmail.com       | Password@123     | Engagement,Exit,Consultation   |   

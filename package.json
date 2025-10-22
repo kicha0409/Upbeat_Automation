@@ -24,10 +24,14 @@
         "@cucumber/cucumber": "^10.3.2",
         "@cucumber/pretty-formatter": "^1.0.0",
         "@playwright/test": "^1.40.1",
+        "argparse": "2.0.1",
         "cucumber-html-reporter": "^7.1.1",
         "playwright": "^1.40.1",
         "winston": "^3.13.0",
-        "winston-daily-rotate-file": "^5.0.0",
-        "argparse": "2.0.1"
+        "winston-daily-rotate-file": "^5.0.0"
+    },
+    "dependencies": {
+        "@google-cloud/local-auth": "^2.1.0",
+        "googleapis": "^105.0.0"
     }
 }

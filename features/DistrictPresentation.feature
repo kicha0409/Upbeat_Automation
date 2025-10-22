@@ -19,4 +19,4 @@ Feature: Verify and Generate District Presentation
     
   Examples:
     | username                          | password         | 
-    | kmoorthy+QTMA@teachupbeat.com     | Password@123     |
+    | kmoorthy+acs@teachupbeat.com     | Password@123     |

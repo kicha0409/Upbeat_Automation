@@ -11,6 +11,8 @@ class ReportPage {
     this.engagementTileCount = '';
     this.districtName = '';
     this.surveyTypes = '';
+    this.reports = Array(5).fill("null");
+        
     }
 
     async launchReportPortal() {
@@ -761,6 +763,41 @@ class ReportPage {
             }
         }
         testReport.log('Consultation Report','Recommended resources section is displayed as expected');
+    }
+
+    async verifyReportDashboard(reportType) {
+        let activeReports = reportType.split(',');
+        console.log(activeReports);
+        for(let i=0;i<activeReports.length;i++) {
+            if(activeReports[i].toLowerCase().trim() === 'engagement')
+                this.reports[0] = 'engagement'
+            if(activeReports[i].toLowerCase().trim() === 'schoolleader')
+                this.reports[1] = 'schoolleader'
+            if(activeReports[i].toLowerCase().trim() === 'exit')
+                this.reports[2] = 'exit'
+            if(activeReports[i].toLowerCase().trim() === 'parent')
+                this.reports[3] = 'parent'
+            if(activeReports[i].toLowerCase().trim() === 'consultation')
+                this.reports[4] = 'consultation'
+        }
+        console.log(this.reports);
+        const reportMap = {
+            engagement: "Engagement Reports",
+            schoolleader: "School Leader Survey",
+            exit: "Exit Reports",
+            parent: "Parent Surveys",
+            consultation: "Consultation Notes"
+        };
+
+        // verify the active reports are shown in the dashboard
+        for (const [key, title] of Object.entries(reportMap)) {
+            const isVisible = this.reports.includes(key);
+            const locator = page.locator(`//*[text()="${title}"]`);
+            let eleIsVisible = await page.locator(locator).isVisible();
+            expect(eleIsVisible).toMatch(isVisible);
+
+            testReport.log("Report Page",`${title} Report is ${isVisible ? "visible" : "hidden"} in the dashboard`);
+        }
     }
 }
 

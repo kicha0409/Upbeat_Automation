@@ -120,8 +120,8 @@ async surveyQuesUpdated() {
     let totalQues = quesArray[1].split(" ");
     await page.waitForTimeout(2000);
     let ele = page.locator(el.survey.frmSurvey);
-    let cName;
-    cName = await ele.evaluate(element => element.className);
+    // let cName;
+    // cName = await ele.evaluate(element => element.className);
     let quesNo = 1;
     let matQues = 1;
     let previousQuesmatrix = false;

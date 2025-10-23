@@ -32,5 +32,7 @@ Feature: Verify Reports
 
   # report types - All, Engagement, Exit, SchoolLeader, Parent, Consultation - more than one report can be given using , separater. not case sensitive (eg: EXIT, consultation)
   Examples:
-      | username                               | password         | reportTypes        |   
-      | mailme2kicha+test-farm@gmail.com       | Password@123     | Engagement,Exit,Consultation   |   
+      | username                               | password         | reportTypes      |   
+      | mailme2kicha+test-farm@gmail.com       | Password@123     | Engagement,Exit,Consultation   |  
+      | mailme2kicha+test-qa@gmail.com         | Password@123     | all              | 
+      | mailme2kicha+test-enonly@gmail.com     | Password@123     | Engagement,Consultation       |

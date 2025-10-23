@@ -12,7 +12,7 @@ class ReportPage {
     this.districtName = '';
     this.surveyTypes = '';
     this.reports = Array(5).fill("null");
-        
+    this.leftMenu = Array(5).fill("null");    
     }
 
     async launchReportPortal() {
@@ -767,36 +767,62 @@ class ReportPage {
 
     async verifyReportDashboard(reportType) {
         let activeReports = reportType.split(',');
-        console.log(activeReports);
-        for(let i=0;i<activeReports.length;i++) {
-            if(activeReports[i].toLowerCase().trim() === 'engagement')
-                this.reports[0] = 'engagement'
-            if(activeReports[i].toLowerCase().trim() === 'schoolleader')
-                this.reports[1] = 'schoolleader'
-            if(activeReports[i].toLowerCase().trim() === 'exit')
-                this.reports[2] = 'exit'
-            if(activeReports[i].toLowerCase().trim() === 'parent')
-                this.reports[3] = 'parent'
-            if(activeReports[i].toLowerCase().trim() === 'consultation')
-                this.reports[4] = 'consultation'
+        let standardReport = ['Engagement','School Leader Survey','Exit','Family Surveys','Consultation Notes'];
+        // assign the report types
+        if(reportType.toLowerCase().trim().includes('all')) {
+            this.reports[0] = 'Engagement Reports';
+            this.leftMenu[0] = 'Engagement';
+            this.reports[1] = 'School Leader Survey';
+            this.leftMenu[1] = 'School Leader Survey';
+            this.reports[2] = 'Exit Reports';
+            this.leftMenu[2] = 'Exit';
+            this.reports[3] = 'Parent Surveys';
+            this.leftMenu[3] = 'Family Surveys';
+            this.reports[4] = 'Consultation Notes';
+            this.leftMenu[4] = 'Consultation Notes';        
         }
-        console.log(this.reports);
-        const reportMap = {
-            engagement: "Engagement Reports",
-            schoolleader: "School Leader Survey",
-            exit: "Exit Reports",
-            parent: "Parent Surveys",
-            consultation: "Consultation Notes"
-        };
-
-        // verify the active reports are shown in the dashboard
-        for (const [key, title] of Object.entries(reportMap)) {
-            const isVisible = this.reports.includes(key);
-            const locator = page.locator(`//*[text()="${title}"]`);
-            let eleIsVisible = await page.locator(locator).isVisible();
-            expect(eleIsVisible).toMatch(isVisible);
-
-            testReport.log("Report Page",`${title} Report is ${isVisible ? "visible" : "hidden"} in the dashboard`);
+        else {
+            for(let i=0;i<activeReports.length;i++) {
+                if(activeReports[i].toLowerCase().trim() === 'engagement') {
+                    this.reports[0] = 'Engagement Reports';
+                    this.leftMenu[0] = 'Engagement';
+                }
+                if(activeReports[i].toLowerCase().trim() === 'schoolleader') {
+                    this.reports[1] = 'School Leader Survey';
+                    this.leftMenu[1] = 'School Leader Survey';
+                }
+                if(activeReports[i].toLowerCase().trim() === 'exit') {
+                    this.reports[2] = 'Exit Reports';
+                    this.leftMenu[2] = 'Exit';
+                }
+                if(activeReports[i].toLowerCase().trim() === 'parent') {
+                    this.reports[3] = 'Parent Surveys';
+                    this.leftMenu[3] = 'Family Surveys';
+                }
+                if(activeReports[i].toLowerCase().trim() === 'consultation') {
+                    this.reports[4] = 'Consultation Notes';
+                    this.leftMenu[4] = 'Consultation Notes';
+                }
+            }
+        }
+        
+        // verify the report types are displayed in the dashboard
+        for(let j=0;j<this.reports.length;j++) {
+            if(this.reports[j]!== 'null') {
+                if(this.reports[j] === 'Consultation Notes') {
+                    await expect(page.locator(`(//*[text()="${this.reports[j]}"])[2]`)).toBeVisible();
+                    await expect(page.locator(`//ul[@class="ul"]/li[${j+2}]//i`)).toHaveClass(/fa-light/);
+                }
+                else {
+                    await expect(page.locator(`//*[text()="${this.reports[j]}"]`)).toBeVisible();
+                    await expect(page.locator(`//ul[@class="ul"]/li[${j+2}]//i`)).toHaveClass(/fa-light/);
+                }
+                testReport.log('Reports Page',`${this.reports[j]} is visible as expected`);
+            }
+            else {
+                await expect(page.locator(`//ul[@class="ul"]/li[${j+2}]//i`)).toHaveClass(/fa-lock-keyhole/);
+                testReport.log('Reports Page',`${standardReport[j]} is locked as expected`);
+            }
         }
     }
 }

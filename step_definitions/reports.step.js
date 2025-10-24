@@ -133,7 +133,7 @@ Then('verify the Recommended Resources', { timeout: 100 * 1000 }, async function
     await reportPage.recommendedResources();
 });
  
-Then('verify the report types on dashboard {string}', { timeout: 100 * 1000 }, async function (reportType) {
+Then('verify the report types on dashboard and left pane {string}', { timeout: 100 * 1000 }, async function (reportType) {
     this.sharedReportType = reportType;
     await reportPage.verifyReportDashboard(reportType);
 });

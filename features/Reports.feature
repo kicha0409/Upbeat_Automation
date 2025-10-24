@@ -26,10 +26,8 @@ Feature: Verify Reports
   Scenario Outline: Verify the user reports with different access
   Given Launch the Report
   When the report user login the report portal "<username>", "<password>"
-  Then verify the report types on dashboard "<reportTypes>"
-  #And verify the active report types on left pane
-  #And verify the active report types on hidding the report titles
-
+  Then verify the report types on dashboard and left pane "<reportTypes>"
+  
   # report types - All, Engagement, Exit, SchoolLeader, Parent, Consultation - more than one report can be given using , separater. not case sensitive (eg: EXIT, consultation)
   Examples:
       | username                               | password         | reportTypes      |   

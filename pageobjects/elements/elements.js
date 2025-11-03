@@ -229,6 +229,13 @@ module.exports = {
         page8CabinetStartDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][3]//div[@class="date-inputs"]/div[@class="date-field"][1]/input',
         page8CabinetEndDate: '//div[@class="date-ranges-container"]/div[@class="date-range-group"][3]//div[@class="date-inputs"]/div[@class="date-field"][2]/input',
         page8BtnGeneratePres: '//button[contains(@class,"btn btn-success")]'
+    },
+
+    consultationNotes: {
+        btnConsultationNote: '//button[text()="Consultation Notes"]',
+        btnAdd: '//button[text()=" Add"]',
+        tblConsultNote: '//table/tbody/tr',
+        drpPrinciplaDropdown: '#principal-selection'
     }
 };
     

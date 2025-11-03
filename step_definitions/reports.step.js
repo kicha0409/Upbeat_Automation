@@ -22,7 +22,9 @@ Then('verify the Hide and Show button in the left pane', { timeout: 100 * 1000 }
 
 Then('the user clicks on Engagement report', { timeout: 100 * 1000 }, async function () {
     if(this.sharedReportType.toLowerCase().includes('engonly') || this.sharedReportType.toLowerCase().includes('all'))
-    await reportPage.clickOnEngagementReport(this.sharedReportType);
+        await reportPage.clickOnEngagementReport(this.sharedReportType);
+    else
+        await reportPage.clickOnEngagementReport('engonly');
 });
 
 Then('the user clicks on Exit report', { timeout: 100 * 1000 }, async function () {
@@ -136,4 +138,21 @@ Then('verify the Recommended Resources', { timeout: 100 * 1000 }, async function
 Then('verify the report types on dashboard and left pane {string}', { timeout: 100 * 1000 }, async function (reportType) {
     this.sharedReportType = reportType;
     await reportPage.verifyReportDashboard(reportType);
+});
+
+Then('select the interval {string}', { timeout: 100 * 1000 }, async function (adminInterval) {
+    this.adminInt = adminInterval;
+    await reportPage.selectAdminPeriod(adminInterval);
+});
+
+When('the coach clicks on Consultation Notes button', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnConsultationNotes();
+});
+
+Then('clicks on add button', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnAddButton();
+});
+
+Then('the user clicks on the district tile', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnEngagementReport('engonly');
 });

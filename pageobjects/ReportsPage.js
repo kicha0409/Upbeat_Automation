@@ -11,6 +11,7 @@ class ReportPage {
     this.engagementTileCount = '';
     this.districtName = '';
     this.surveyTypes = '';
+    this.adminInterval = '';
     this.reports = Array(5).fill("null");
     this.leftMenu = Array(5).fill("null");    
     }
@@ -822,6 +823,79 @@ class ReportPage {
             else {
                 await expect(page.locator(`//ul[@class="ul"]/li[${j+2}]//i`)).toHaveClass(/fa-lock-keyhole/);
                 testReport.log('Reports Page',`${standardReport[j]} is locked as expected`);
+            }
+        }
+    }
+
+    async selectAdminPeriod(adminInterval) {
+        // Select the admin period
+        this.adminInterval = adminInterval;
+       const interval = el.consultationReport.drpInterval;
+       
+       const options = await page.locator('select[name="interval"] option');
+       const count = await options.count();
+       let dropDownValue;
+        for (let k = 0; k < count; k++) {
+        const option = options.nth(k);
+        const label = await option.textContent();
+        if (label.trim() === adminInterval) {
+            dropDownValue = await page.locator(`//select[@name="interval"]//option[${k+1}]`).getAttribute('value');
+            break;
+        }
+        }
+
+       await page.locator(el.consultationReport.drpInterval).selectOption({ value: dropDownValue });
+       await page.waitForTimeout(5000);
+       await page.waitForLoadState('load',{timeout: 30000});
+
+       // verify the drop down option is selected
+       const selectedValue = await page.$eval(el.consultationReport.drpInterval, (select) => select.value);
+       expect(selectedValue).toMatch(dropDownValue);
+       testReport.log('Consultation Report','Admin period is selected as expected');
+    }
+
+    async clickOnConsultationNotes() {
+        await page.locator(el.consultationNotes.btnConsultationNote).click();
+        await page.waitForLoadState('load', {timeout: 20000});
+        await expect(page.locator(el.consultationNotes.btnAdd)).toBeVisible();
+        testReport.log("Consultation Note",'Consultation page is opened');
+    }
+
+    async clickOnAddButton() {
+        // verify whether the admin period has an existing consultation notes
+        let rowCount = 0;
+        try {
+            rowCount = await page.locator(el.consultationNotes.tblConsultNote).count();
+        }
+        catch(err) {
+            testReport.log('Consultation Note','No existing rows displayed');
+            await page.locator(el.consultationNotes.btnAdd).click();
+            testReport.log('Consultation Note','Clicked on add button');
+            await expect(page.locator(el.consultationNotes.drpPrinciplaDropdown)).toBeVisible({timeout: 30000});
+            testReport.log('Consultation Note','Consultation Notes is visible');
+        }
+        
+        // verify whether the consultation notes already exists for that district
+        let noteExists = false;
+        if(rowCount > 0) {
+            // verify if consultation notes exists for the admin period
+            for(let i = 1;i <= rowCount; i++) {
+                const currentInterval = await page.locator(`//table/tbody/tr[${i}]/td[2]`).innerText();
+                if(currentInterval.includes(this.adminInterval)) {
+                    await page.locator(`//table/tbody/tr[${i}]/td[5]/button`).click();
+                    testReport.log('Consultation Note','Clicked on open button');
+                    await expect(page.locator(el.consultationNotes.drpPrinciplaDropdown)).toBeVisible({timeout: 30000});
+                    testReport.log('Consultation Note','Consultation Notes is visible');
+                    noteExists = true;
+                    break;
+                }
+            }
+            // no consultation notes exists for the admin period, hence clicking on add button
+            if(!noteExists) {
+                await page.locator(el.consultationNotes.btnAdd).click();
+                testReport.log('Consultation Note','Clicked on add button');
+                await expect(page.locator(el.consultationNotes.drpPrinciplaDropdown)).toBeVisible({timeout: 30000});
+                testReport.log('Consultation Note','Consultation Notes is visible');
             }
         }
     }

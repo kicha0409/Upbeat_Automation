@@ -235,7 +235,17 @@ module.exports = {
         btnConsultationNote: '//button[text()="Consultation Notes"]',
         btnAdd: '//button[text()=" Add"]',
         tblConsultNote: '//table/tbody/tr',
-        drpPrinciplaDropdown: '#principal-selection'
+        drpMetricsPrincipal: '#principal-selection',
+        dtConsultDate: 'input[name="date"]',
+        radConsultSession: 'div[class="metadata-block"] ul[class="ul"] li:nth-of-type(1) label',
+        btnNext: 'div[class="footer"] button:nth-of-type(2)',
+        btnPrevious: 'div[class="footer"] button:nth-of-type(1)',
+        divSaveMsg: '[class="active ng-star-inserted"]',
+        btnStrength: 'div[class="tab-container"]:nth-of-type(1) div[class="controls"] button',
+        drpStrength: '#suggestion-tabs-strength div[class*="strength-container"] select',
+        txtStength: '#suggestion-tabs-strength div[class*="strength-container"] textarea',
+        btnAddEntry: '#suggestion-tabs-strength div[class*="strength-container"] div[class="buttons"] button[class="button knockout entry"]',
+        btnNextSurveyType: '#suggestion-tabs-strength div[class*="strength-container"] div[class="buttons"] button:nth-of-type(2)'
     }
 };
     

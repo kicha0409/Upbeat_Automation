@@ -2,8 +2,11 @@ const el = require('./elements/elements.js');
 const td = require('./testdata.js');
 const { expect } = require('@playwright/test');
 const { ReportUtils } = require('./../setup/reportUtils.js');
+const { ApiGetData} = require('../api_utlis/ApiGetData.js');
+const { remove } = require('winston');
 
 const testReport = new ReportUtils();
+const apiGetData = new ApiGetData();
 
 class ReportPage {
     
@@ -13,7 +16,8 @@ class ReportPage {
     this.surveyTypes = '';
     this.adminInterval = '';
     this.reports = Array(5).fill("null");
-    this.leftMenu = Array(5).fill("null");    
+    this.leftMenu = Array(5).fill("null");
+    this.surveyTypes = 0;    
     }
 
     async launchReportPortal() {
@@ -884,7 +888,7 @@ class ReportPage {
                 if(currentInterval.includes(this.adminInterval)) {
                     await page.locator(`//table/tbody/tr[${i}]/td[5]/button`).click();
                     testReport.log('Consultation Note','Clicked on open button');
-                    await expect(page.locator(el.consultationNotes.drpPrinciplaDropdown)).toBeVisible({timeout: 30000});
+                    await expect(page.locator(el.consultationNotes.drpMetricsPrincipal)).toBeVisible({timeout: 30000});
                     testReport.log('Consultation Note','Consultation Notes is visible');
                     noteExists = true;
                     break;
@@ -898,6 +902,67 @@ class ReportPage {
                 testReport.log('Consultation Note','Consultation Notes is visible');
             }
         }
+    }
+
+    async completeMetricsPage() {
+        // select the test principal in the dropdown
+        const optionCount = await page.locator(`${el.consultationNotes.drpMetricsPrincipal} option`).count();
+        const drpDown = page.locator(el.consultationNotes.drpMetricsPrincipal);
+        for(let i=0; i<optionCount; i++) {
+            let optionValue = await page.locator(`${el.consultationNotes.drpMetricsPrincipal} option`).nth(i).innerText();
+            if(optionValue.toLowerCase().includes('test')) {
+                await drpDown.selectOption({ index: i});
+                testReport.log('Metrics Page','Principla name is selected');
+                break;
+            }
+        }
+
+        // select future date
+        let today = new Date();
+        let futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + 10);
+        // converting the date to mm/dd/yyyy format
+        let mm = String(futureDate.getMonth() + 1).padStart(2, '0'); // months are 0-based
+        let dd = String(futureDate.getDate()).padStart(2, '0');
+        let yyyy = futureDate.getFullYear();
+        const fDate = `${mm}/${dd}/${yyyy}`;
+        await page.locator(el.consultationNotes.dtConsultDate).fill(fDate);
+        testReport.log('Metrics Page','Future date is selected');
+        // select the consult attend seeion response
+        await page.locator(el.consultationNotes.radConsultSession).click();
+        testReport.log('Metrics Page','Selected response on consultation session question');
+    }
+
+    async clickOnNext() {
+        // click on next button
+        await page.locator(el.consultationNotes.btnNext).click();
+        testReport.log('Metrics Page','Clicked on Next button');
+        // verify next page is loaded
+        await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 30000});
+    }
+
+    async completeStrengths() {
+        this.surveyTypes = await page.locator(el.consultationNotes.btnStrength).count();
+        let optionCount = 2;
+        for(let i=1;i<=this.surveyTypes;i++) {
+            for(let j=1;j<=2;j++) {
+                // select strength from the dropdown
+                const drpStrength = page.locator(el.consultationNotes.drpStrength);
+                drpStrength.selectOption({index: `${optionCount}`});
+                const drpText = await page.locator(`${el.consultationNotes.drpStrength} option:nth-of-type(${optionCount})`).innerText();
+                // remove the percentage from the text
+                const removePecent = drpText.split('(')[0];
+                optionCount++;
+                // enter a random text 
+                await page.locator(el.consultationNotes.txtStength).fill(`${removePecent} - ${apiGetData.getDummytext()}`);
+                // click on add entry
+                if(j!=2)
+                    await page.locator(el.consultationNotes.btnAddEntry).click();
+                if(j===2 && i!==this.surveyTypes)
+                    await page.locator(el.consultationNotes.btnNextSurveyType).click();
+            }
+        }
+        await page.waitForTimeout(5000);
     }
 }
 

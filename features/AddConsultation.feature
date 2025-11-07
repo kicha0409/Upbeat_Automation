@@ -8,6 +8,8 @@ Feature: Verify adding a new consultation notes
     Then select the interval "<adminInterval>"
     When the coach clicks on Consultation Notes button
     Then clicks on add button
+    And completes the metrics page
+    And completes discussion page
         
   Examples:
       | username                           | password         | adminInterval   |

@@ -1031,7 +1031,15 @@ class ReportPage {
     }
 
     generateRandomNum(max) {
-        return Math.floor(Math.random() * max);
+        max = Math.floor(max);
+        try {
+            // Node's crypto.randomInt is unbiased and preferred in test runners
+            const { randomInt } = require('crypto');
+            return randomInt(1, max + 1); // min inclusive, max+1 exclusive → 1..max
+        } catch (e) {
+            // fallback to Math.random
+            return Math.floor(Math.random() * max) + 1; // 1..max
+        }
     }
 
     async selectSharingResults() {

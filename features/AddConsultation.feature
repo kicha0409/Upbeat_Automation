@@ -9,7 +9,13 @@ Feature: Verify adding a new consultation notes
     When the coach clicks on Consultation Notes button
     Then clicks on add button
     And completes the metrics page
+    And clicks on Next button
     And completes discussion page
+    And completes areas of oppurtunity
+    And completes actions
+    And completes Recommended Toolkits
+    And select sharing results
+    And clicks on Next button
         
   Examples:
       | username                           | password         | adminInterval   |

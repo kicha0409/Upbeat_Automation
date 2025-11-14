@@ -242,10 +242,23 @@ module.exports = {
         btnPrevious: 'div[class="footer"] button:nth-of-type(1)',
         divSaveMsg: '[class="active ng-star-inserted"]',
         btnStrength: 'div[class="tab-container"]:nth-of-type(1) div[class="controls"] button',
-        drpStrength: '#suggestion-tabs-strength div[class*="strength-container"] select',
-        txtStength: '#suggestion-tabs-strength div[class*="strength-container"] textarea',
+        drpStrength: '#suggestion-tabs-strength div[class*="suggestion-block"]',
+        txtStength: '#suggestion-tabs-strength div[class*="suggestion-block"]',
         btnAddEntry: '#suggestion-tabs-strength div[class*="strength-container"] div[class="buttons"] button[class="button knockout entry"]',
-        btnNextSurveyType: '#suggestion-tabs-strength div[class*="strength-container"] div[class="buttons"] button:nth-of-type(2)'
+        btnNextSurveyType: '#suggestion-tabs-strength div[class*="strength-container"] div[class="buttons"] button:nth-of-type(2)',
+        drpGrowth: '#suggestion-tabs-growth div[class*="suggestion-block"]',
+        txtGrowth: '#suggestion-tabs-growth div[class*="suggestion-block"]',
+        btnGrowthAdd: '#suggestion-tabs-growth div[class*="strength-container"] div[class="buttons"] button[class="button knockout entry"]',
+        btnNextGrowthSurveyType: '#suggestion-tabs-growth div[class*="strength-container"] div[class="buttons"] button:nth-of-type(2)',
+        txtAction: 'div[class*="principal-container"] div[class*="action-block"]',
+        btnActionsAdd: 'div[class*="principal-container"] button[class="button knockout"]',
+        btnNextAction: 'div[class*="principal-container"] button[class="button"]:nth-of-type(2)',
+        btnNextToolKit: 'div[class*="coach-container"] button[class="button"]:nth-of-type(2)',
+        btnAddResource: 'div[class*="coach-container"] div[class*="action-block"]', // :nth-of-type(5)
+        mnuResources: 'div[class*="mat-menu-content"] button[class*="mat-focus-indicator mat-menu-trigger"]', // :nth-of-type(5)
+        mnuSubResources: 'button[class*="mat-focus-indicator mat-menu-item"]', // :nth-of-type(5)
+        lnkAddedResource: 'div[class*="coach-container"] div[class*="action-block"]', // :nth-of-type(1) a
+        radSharingResults: 'div[class="sharing-block"] li:nth-of-type(1) label'
     }
 };
     

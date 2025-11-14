@@ -4,6 +4,7 @@ const { expect } = require('@playwright/test');
 const { ReportUtils } = require('./../setup/reportUtils.js');
 const { ApiGetData} = require('../api_utlis/ApiGetData.js');
 const { remove } = require('winston');
+const elements = require('./elements/elements.js');
 
 const testReport = new ReportUtils();
 const apiGetData = new ApiGetData();
@@ -939,22 +940,24 @@ class ReportPage {
         testReport.log('Metrics Page','Clicked on Next button');
         // verify next page is loaded
         await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 30000});
+        testReport.log('Next','Clicked on Next button');
     }
 
     async completeStrengths() {
         this.surveyTypes = await page.locator(el.consultationNotes.btnStrength).count();
-        let optionCount = 2;
+        let optionCount = parseInt(2);
         for(let i=1;i<=this.surveyTypes;i++) {
             for(let j=1;j<=2;j++) {
                 // select strength from the dropdown
-                const drpStrength = page.locator(el.consultationNotes.drpStrength);
-                drpStrength.selectOption({index: `${optionCount}`});
-                const drpText = await page.locator(`${el.consultationNotes.drpStrength} option:nth-of-type(${optionCount})`).innerText();
+                const drpStrength = page.locator(`${el.consultationNotes.drpStrength}:nth-of-type(${j}) select`);
+                await drpStrength.selectOption({index: optionCount});
+                const drpText = await page.locator(`${el.consultationNotes.drpStrength}:nth-of-type(${j}) select option:nth-of-type(${optionCount})`).innerText();
                 // remove the percentage from the text
                 const removePecent = drpText.split('(')[0];
                 optionCount++;
                 // enter a random text 
-                await page.locator(el.consultationNotes.txtStength).fill(`${removePecent} - ${apiGetData.getDummytext()}`);
+                const dummyData = await apiGetData.getDummytext();
+                await page.locator(`${el.consultationNotes.txtStength}:nth-of-type(${j}) textarea`).fill(`${removePecent} - ${dummyData}`);
                 // click on add entry
                 if(j!=2)
                     await page.locator(el.consultationNotes.btnAddEntry).click();
@@ -962,7 +965,78 @@ class ReportPage {
                     await page.locator(el.consultationNotes.btnNextSurveyType).click();
             }
         }
-        await page.waitForTimeout(5000);
+        testReport.log('Strenghts','Completed the section');
+    }
+
+    async areasOfOppurtunity() {
+        let optionCount = parseInt(2);
+        for(let i=1;i<=this.surveyTypes;i++) {
+            for(let j=1;j<=2;j++) {
+                // select strength from the dropdown
+                const drpGrowth = page.locator(`${el.consultationNotes.drpGrowth}:nth-of-type(${j}) select`);
+                await drpGrowth.selectOption({index: optionCount});
+                const drpGrowthText = await page.locator(`${el.consultationNotes.drpGrowth}:nth-of-type(${j}) select option:nth-of-type(${optionCount})`).innerText();
+                // remove the percentage from the text
+                const removePecent = drpGrowthText.split('(')[0];
+                optionCount++;
+                // enter a random text 
+                const dummyData = await apiGetData.getDummytext();
+                await page.locator(`${el.consultationNotes.txtGrowth}:nth-of-type(${j}) textarea`).fill(`${removePecent} - ${dummyData}`);
+                // click on add entry
+                if(j!=2)
+                    await page.locator(el.consultationNotes.btnGrowthAdd).click();
+                if(j===2 && i!==this.surveyTypes)
+                    await page.locator(el.consultationNotes.btnNextGrowthSurveyType).click();
+            }
+        }
+        testReport.log('Area of oppurtunity','Completed the section');
+    }
+
+    async completeActions() {
+        for(let i=1;i<=this.surveyTypes;i++) {
+            for(let j=1;j<=2;j++) {
+                // enter a random text 
+                const dummyData = await apiGetData.getDummytext();
+                await page.locator(`${el.consultationNotes.txtAction}:nth-of-type(${j}) textarea`).fill(`${dummyData}`);
+                // click on add entry
+                if(j!=2)
+                    await page.locator(el.consultationNotes.btnActionsAdd).click();
+                if(j===2 && i!==this.surveyTypes)
+                    await page.locator(el.consultationNotes.btnNextAction).click();
+            }
+        }
+        testReport.log('Action','Completed the section');
+    }
+
+    async completeToolkits() {
+        for(let i=1;i<=this.surveyTypes;i++) {
+            const totalMenus = await page.locator(el.consultationNotes.mnuResources).count();
+            for(let j=1;j<=3;j++) {
+                // click on add resource
+                await page.locator(`${elements.consultationNotes.btnAddResource}:nth-of-type(j)`).click();
+                // enter a random text
+                let mnuRandomNum = this.generateRandomNum(totalMenus);
+                await page.locator(`{elements.mnuResources}:nth-of-typeof(${mnuRandomNum})`).hover();
+                const totalSubMenu = await page.locator(elements.consultationNotes.mnuSubResources).count();
+                mnuRandomNum = this.generateRandomNum(totalSubMenu);
+                await page.locator(`{elements.mnuSubResources}:nth-of-typeof(${mnuRandomNum})`).click();
+                // click on add entry
+                if(j!=3)
+                    await page.locator(el.consultationNotes.btnAddResource).click();
+                if(j===3 && i!==this.surveyTypes)
+                    await page.locator(el.consultationNotes.btnNextToolKit).click();
+            }
+        }
+        testReport.log('Resources','Completed the section');
+    }
+
+    generateRandomNum(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    async selectSharingResults() {
+        await page.locator(elements.consultationNotes.radSharingResults).click();
+        testReport.log('Sharing the Results','Completed the section');
     }
 }
 

@@ -162,6 +162,25 @@ Then('completes the metrics page', { timeout: 100 * 1000 }, async function () {
     await reportPage.clickOnNext();
 });
 
+Then('And clicks on Next button', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnNext();
+});
 Then('completes discussion page', { timeout: 100 * 1000 }, async function () {
     await reportPage.completeStrengths();
+});
+
+Then('completes areas of oppurtunity', { timeout: 100 * 1000 }, async function () {
+    await reportPage.areasOfOppurtunity();
+});
+
+Then('completes actions', { timeout: 100 * 1000 }, async function () {
+    await reportPage.completeActions();
+});
+
+Then('completes Recommended Toolkits', { timeout: 100 * 1000 }, async function () {
+    await reportPage.completeToolkits();
+});
+
+Then('select sharing results', { timeout: 100 * 1000 }, async function () {
+    await reportPage.selectSharingResults();
 });

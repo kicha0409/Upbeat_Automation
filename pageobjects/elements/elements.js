@@ -258,7 +258,8 @@ module.exports = {
         mnuResources: 'div[class*="mat-menu-content"] button[class*="mat-focus-indicator mat-menu-trigger"]', // :nth-of-type(5)
         mnuSubResources: 'button[class*="mat-focus-indicator mat-menu-item"]', // :nth-of-type(5)
         lnkAddedResource: 'div[class*="coach-container"] div[class*="action-block"]', // :nth-of-type(1) a
-        radSharingResults: 'div[class="sharing-block"] li:nth-of-type(1) label'
+        radSharingResults: 'div[class="sharing-block"] li:nth-of-type(1) label',
+        btnAddEntryResource: '#action-tabs-coach button[class="button knockout"]'
     }
 };
     

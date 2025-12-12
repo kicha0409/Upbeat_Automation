@@ -4,6 +4,7 @@ const { SurveyPage } = require('.././pageobjects/SurveyPage');
 const surveyPage = new SurveyPage();
 
 Given('Launch the survey {string}', { timeout: 100 * 1000 }, async function (surveyURL) {
+    this.sharedsurveyURL = surveyURL;
     await surveyPage.launchSurvey(surveyURL);
   });
 
@@ -12,5 +13,10 @@ Then('Complete the initial steps', async function () {
 });  
 
 Then('Start responding the survey questions', {timeout: 3 * 80000}, async function () {
-    await surveyPage.surveyQuesUpdated();
+    if(this.sharedsurveyURL.includes('qa'))
+        await surveyPage.surveyQuesUpdated();
+    else if(this.sharedsurveyURL.includes('staging'))
+        await surveyPage.surveyQuesUpdated();
+    else
+        await surveyPage.surveyQues();
 });

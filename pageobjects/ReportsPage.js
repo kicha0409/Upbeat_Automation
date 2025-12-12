@@ -867,6 +867,7 @@ class ReportPage {
     }
 
     async clickOnAddButton() {
+        await page.waitForSelector('i[class="fa-solid fa-plus"]',{timeout: 60000});
         // verify whether the admin period has an existing consultation notes
         let rowCount = 0;
         try {
@@ -937,7 +938,7 @@ class ReportPage {
     async clickOnNext() {
         // click on next button
         await page.locator(el.consultationNotes.btnNext).click();
-        testReport.log('Metrics Page','Clicked on Next button');
+        // testReport.log('Metrics Page','Clicked on Next button');
         // verify next page is loaded
         await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 30000});
         testReport.log('Next','Clicked on Next button');
@@ -1010,19 +1011,20 @@ class ReportPage {
 
     async completeToolkits() {
         for(let i=1;i<=this.surveyTypes;i++) {
-            const totalMenus = await page.locator(el.consultationNotes.mnuResources).count();
+            let totalMenus;
             for(let j=1;j<=3;j++) {
                 // click on add resource
-                await page.locator(`${elements.consultationNotes.btnAddResource}:nth-of-type(j)`).click();
+                await page.locator(`${elements.consultationNotes.btnAddResource}:nth-of-type(${j})`).click();
+                totalMenus = await page.locator(el.consultationNotes.mnuResources).count();
                 // enter a random text
                 let mnuRandomNum = this.generateRandomNum(totalMenus);
-                await page.locator(`{elements.mnuResources}:nth-of-typeof(${mnuRandomNum})`).hover();
+                await page.locator(`${elements.consultationNotes.mnuResources}:nth-of-type(${mnuRandomNum})`).hover();
                 const totalSubMenu = await page.locator(elements.consultationNotes.mnuSubResources).count();
                 mnuRandomNum = this.generateRandomNum(totalSubMenu);
-                await page.locator(`{elements.mnuSubResources}:nth-of-typeof(${mnuRandomNum})`).click();
+                await page.locator(`${elements.consultationNotes.mnuSubResources}:nth-of-type(${mnuRandomNum})`).click();
                 // click on add entry
                 if(j!=3)
-                    await page.locator(el.consultationNotes.btnAddResource).click();
+                    await page.locator(el.consultationNotes.btnAddEntryResource).click();
                 if(j===3 && i!==this.surveyTypes)
                     await page.locator(el.consultationNotes.btnNextToolKit).click();
             }

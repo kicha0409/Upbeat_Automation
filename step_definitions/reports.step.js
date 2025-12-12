@@ -159,10 +159,9 @@ Then('the user clicks on the district tile', { timeout: 100 * 1000 }, async func
 
 Then('completes the metrics page', { timeout: 100 * 1000 }, async function () {
     await reportPage.completeMetricsPage();
-    await reportPage.clickOnNext();
 });
 
-Then('And clicks on Next button', { timeout: 100 * 1000 }, async function () {
+Then('clicks on Next button', { timeout: 100 * 1000 }, async function () {
     await reportPage.clickOnNext();
 });
 Then('completes discussion page', { timeout: 100 * 1000 }, async function () {

@@ -25,9 +25,9 @@ async surveyQues() {
     let quesArray = Ques.split("/");
     let totalQues = quesArray[1].split(" ");
     await page.waitForTimeout(2000);
-    let ele = page.locator(el.survey.frmSurvey);
+    /* let ele = page.locator(el.survey.frmSurvey);
     let cName;
-    cName = await ele.evaluate(element => element.className);
+    cName = await ele.evaluate(element => element.className); */
     
     do {
        

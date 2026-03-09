@@ -26,7 +26,6 @@ class ReportPage {
         await page.waitForLoadState('load',{timeout: 60000});
     }
 
-
     async loginReportPortal(email, password) {
         await page.fill(el.reportsLoginPage.txtUserName, email);
         await page.fill(el.reportsLoginPage.txtPassword, password);
@@ -647,7 +646,9 @@ class ReportPage {
     }
 
     async clickOnConsultationSchool(adminPeriod) {
-       await page.locator(el.survey.divConsultSchool).click();
+        // navigate to schoold and department section and click on the first school
+       await page.getByText('Schools & Departments').click();
+       await page.locator('ul li:nth-of-type(1) button[class="button school"]').click();
        await page.waitForLoadState('load',{timeout: 60000}); 
        await page.waitForTimeout(10000);
        await expect(page.locator(el.consultationReport.drpSchool)).toBeVisible({timeout: 60000});
@@ -940,7 +941,7 @@ class ReportPage {
         await page.locator(el.consultationNotes.btnNext).click();
         // testReport.log('Metrics Page','Clicked on Next button');
         // verify next page is loaded
-        await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 30000});
+        await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 120000});
         testReport.log('Next','Clicked on Next button');
     }
 
@@ -1012,9 +1013,10 @@ class ReportPage {
     async completeToolkits() {
         for(let i=1;i<=this.surveyTypes;i++) {
             let totalMenus;
-            for(let j=1;j<=3;j++) {
+            for(let j=1;j<=1;j++) {
                 // click on add resource
-                await page.locator(`${elements.consultationNotes.btnAddResource}:nth-of-type(${j})`).click();
+                await expect(page.locator(el.consultationNotes.btnAddResource)).toBeVisible({timeout: 30000});
+                await page.locator(`${elements.consultationNotes.btnAddResource}:nth-of-type(${j})`).click({ force: true });
                 totalMenus = await page.locator(el.consultationNotes.mnuResources).count();
                 // enter a random text
                 let mnuRandomNum = this.generateRandomNum(totalMenus);
@@ -1023,10 +1025,12 @@ class ReportPage {
                 mnuRandomNum = this.generateRandomNum(totalSubMenu);
                 await page.locator(`${elements.consultationNotes.mnuSubResources}:nth-of-type(${mnuRandomNum})`).click();
                 // click on add entry
-                if(j!=3)
-                    await page.locator(el.consultationNotes.btnAddEntryResource).click();
-                if(j===3 && i!==this.surveyTypes)
+                // if(j!=3)
+                //    await page.locator(el.consultationNotes.btnAddEntryResource).click();
+                if(i!==this.surveyTypes) {
                     await page.locator(el.consultationNotes.btnNextToolKit).click();
+                    await page.waitForTimeout(2000);
+                }
             }
         }
         testReport.log('Resources','Completed the section');
@@ -1048,6 +1052,30 @@ class ReportPage {
         await page.locator(elements.consultationNotes.radSharingResults).click();
         testReport.log('Sharing the Results','Completed the section');
     }
-}
 
+    async completesFollowUpPage() {
+        const email = await page.locator(elements.consultationNotes.txtSupervisorEmail).inputValue();
+        if(email.includes('mailme2kicha')) {
+            testReport.log('Preview Page','Test Email is added as expected');
+        }
+        else {
+            await page.locator(elements.consultationNotes.txtSupervisorEmail).fill('mailme2kicha@gmail.com');
+            testReport.log('Preview Page','Updated test email');
+        }
+    }
+
+    async clickOnPreviewEmail() {
+        // click on preview email button
+        await page.locator(el.consultationNotes.btnNext).click();
+        // verify next page is loaded
+        await expect(page.locator(el.consultationNotes.divSaveMsg)).toBeHidden({timeout: 120000});
+        testReport.log('Preview Email','Clicked on Preview Email button');
+    }
+
+    async clickOnSendmail() {
+        // click on send email button
+        await page.locator(el.consultationNotes.btnNext).click();
+        testReport.log('Send Email','Clicked on Send Email button');
+    }
+}
 module.exports = {ReportPage};

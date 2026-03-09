@@ -44,3 +44,6 @@ jest/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+*.png
+reports/cucumber-report.json
+reports/cucumberReport.html

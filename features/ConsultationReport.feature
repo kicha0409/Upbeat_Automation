@@ -15,5 +15,5 @@ Feature: Verify Cosultation Report
     And verify the Recommended Resources
         
   Examples:
-      | username                                  | password         | reportTypes    |   adminInterval   |
-      |	mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Winter 2024     |
+    | username                             | password         | reportTypes    |   adminInterval   |
+    |		mailme2kicha+test-qa@gmail.com     | Password@123     | All            |   Fall 2025       |

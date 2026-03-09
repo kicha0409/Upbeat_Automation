@@ -7,6 +7,7 @@ module.exports = {
         lblQuestionText: '(//div[@class="fieldset ng-scope normal center"])[1] | (//div[@class="fieldset ng-scope center normal"])[1] | (//div[@class="fieldset ng-scope tall center"])[1]',
         divQuesChoice: '(//div[@class="fieldset ng-scope normal center"])[1]//ul//li | (//div[@class="fieldset ng-scope center normal"])[1]//ul//li | (//div[@class="fieldset ng-scope tall center"])[1]//ul//li',
         txtareaResponse:'(//div[@class="fieldset ng-scope normal center"]//textarea)[1]',
+        txtareaQuestion: '(//div[@class="fieldset ng-scope normal center"]//textarea)[1]/parent::div',
         btnTxtareaSubmit: 'div[class="fieldset ng-scope normal center"] button',
         btnSaveProgress: 'button[class="save ng-binding ng-scope"]',
         lblRadioQuesText: 'div[class="fieldset ng-scope center tall"]',
@@ -33,7 +34,9 @@ module.exports = {
         btnDashboard: '//button//span[text()="Dashboard"]',
         divConsultSchool : '//ul[contains(@class,"engagement")]/li//*[text()="QA Consult School I"]',
         txtQuestionFirst: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[1]/parent::legend/following-sibling::textarea',
+        txtQuestionFirstText: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[1]/parent::legend/following-sibling::textarea/parent::div/legend',
         txtQuestionSecond: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[2]/parent::legend/following-sibling::textarea',
+        txtQuestionSecondText: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[2]/parent::legend/following-sibling::textarea/parent::div/legend',
         drpQuestionFirst: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[1]/parent::legend/following-sibling::span/select',
         drpQuestionSecond: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[2]/parent::legend/following-sibling::span/select',
         drpQuestionFirstCount: '(//form[@id="form-desktop-view"]//*[@class="questiontext ng-binding"])[1]/parent::legend/following-sibling::span/select/option',
@@ -259,7 +262,8 @@ module.exports = {
         mnuSubResources: 'button[class*="mat-focus-indicator mat-menu-item"]', // :nth-of-type(5)
         lnkAddedResource: 'div[class*="coach-container"] div[class*="action-block"]', // :nth-of-type(1) a
         radSharingResults: 'div[class="sharing-block"] li:nth-of-type(1) label',
-        btnAddEntryResource: '#action-tabs-coach button[class="button knockout"]'
+        btnAddEntryResource: '#action-tabs-coach button[class="button knockout"]',
+        txtSupervisorEmail: '#consultation-email'
     }
 };
     

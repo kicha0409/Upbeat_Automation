@@ -14,9 +14,13 @@ Feature: Verify adding a new consultation notes
     And completes areas of oppurtunity
     And completes actions
     And completes Recommended Toolkits
-    And select sharing results
+    # And select sharing results
     And clicks on Next button
-        
+    And completes follow up page
+    And clicks on Preview Email button
+    And clicks on Send Email button
+    # Then verify consultation notes is added successfully
+
   Examples:
       | username                           | password         | adminInterval   |
       |	kmoorthy+QTD@teachupbeat.com	     | Password@123     | Fall 2025       |

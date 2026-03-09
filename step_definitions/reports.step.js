@@ -183,3 +183,15 @@ Then('completes Recommended Toolkits', { timeout: 100 * 1000 }, async function (
 Then('select sharing results', { timeout: 100 * 1000 }, async function () {
     await reportPage.selectSharingResults();
 });
+
+Then('completes follow up page', { timeout: 100 * 1000 }, async function () {
+    await reportPage.completesFollowUpPage();
+});
+
+Then('clicks on Preview Email button', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnPreviewEmail();
+});
+
+Then('clicks on Send Email button', { timeout: 100 * 1000 }, async function () {
+    await reportPage.clickOnSendmail();
+});

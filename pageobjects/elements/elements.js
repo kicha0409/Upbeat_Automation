@@ -8,7 +8,7 @@ module.exports = {
         divQuesChoice: '(//div[@class="fieldset ng-scope normal center"])[1]//ul//li | (//div[@class="fieldset ng-scope center normal"])[1]//ul//li | (//div[@class="fieldset ng-scope tall center"])[1]//ul//li',
         txtareaResponse:'(//div[@class="fieldset ng-scope normal center"]//textarea)[1]',
         txtareaQuestion: '(//div[@class="fieldset ng-scope normal center"]//textarea)[1]/parent::div',
-        btnTxtareaSubmit: 'div[class="fieldset ng-scope normal center"] button',
+        btnTxtareaSubmit: 'div[class="fieldset ng-scope normal center"] button', //updated
         btnSaveProgress: 'button[class="save ng-binding ng-scope"]',
         lblRadioQuesText: 'div[class="fieldset ng-scope center tall"]',
         lblRadioQuesOptions: '//div[@class="fieldset ng-scope center tall"]/ul/li',

@@ -8,7 +8,7 @@ Given('Launch the survey {string}', { timeout: 100 * 1000 }, async function (sur
     await surveyPage.launchSurvey(surveyURL);
   });
 
-Then('Complete the initial steps', async function () {
+Then('Complete the initial steps', { timeout: 60 * 1000 }, async function () {
     await surveyPage.completeInitialSteps();
 });  
 

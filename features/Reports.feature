@@ -1,6 +1,6 @@
 Feature: Verify Reports
-  
-  @Reports
+
+  @Reports1
   Scenario Outline: Verify Report login and dashboard
     Given Launch the Report
     When the report user login the report portal "<username>", "<password>"
@@ -15,22 +15,23 @@ Feature: Verify Reports
     And Verify the Questions page with demographics filter
     When the user clicks on Exit Report in sidebar
     Then navigates to Exit Report
-    
-    
-  Examples:
-      | username                                  | password         | reportTypes    |   adminInterval   |
-      | mailme2kicha+test-allschool@gmail.com     | Password@123     | All            |   Fall 2024       |
+
+
+    Examples:
+      | username                       | password     | reportTypes | adminInterval |
+      | mailme2kicha+test-rj@gmail.com | Password@123 | All         | Fall 2024     |
 
 
   @ReportAccess
   Scenario Outline: Verify the user reports with different access
-  Given Launch the Report
-  When the report user login the report portal "<username>", "<password>"
-  Then verify the report types on dashboard and left pane "<reportTypes>"
-  
-  # report types - All, Engagement, Exit, SchoolLeader, Parent, Consultation - more than one report can be given using , separater. not case sensitive (eg: EXIT, consultation)
-  Examples:
-      | username                               | password         | reportTypes      |   
-      | mailme2kicha+test-farm@gmail.com       | Password@123     | Engagement,Exit,Consultation   |  
-      | mailme2kicha+test-qa@gmail.com         | Password@123     | all              | 
-      | mailme2kicha+test-enonly@gmail.com     | Password@123     | Engagement,Consultation       |
+    Given Launch the Report
+    When the report user login the report portal "<username>", "<password>"
+    Then verify the report types on dashboard and left pane "<reportTypes>"
+
+    # report types - All, Engagement, Exit, SchoolLeader, Parent, Consultation - more than one report can be given using , separater. not case sensitive (eg: EXIT, consultation)
+    Examples:
+      | username                           | password     | reportTypes                               |
+      #| mailme2kicha+test-farm@gmail.com   | Password@123 | Engagement,Exit,Consultation              |
+      #| mailme2kicha+test-qa@gmail.com     | Password@123 | all                                       |
+      #| mailme2kicha+test-enonly@gmail.com | Password@123 | Engagement,Consultation                   |
+      | mailme2kicha+test-rj@gmail.com     | Password@123 | Engagement,Exit,Consultation,SchoolLeader |  

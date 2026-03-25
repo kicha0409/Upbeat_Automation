@@ -13,8 +13,9 @@ credentials.json
 # Logs
 *.log
 
-# Custom gitignore settings
-/reports/**
+# Screenshots and reports
+screenshots/
+reports/
 
 # Output directories
 dist/
@@ -44,6 +45,3 @@ jest/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
-*.png
-reports/cucumber-report.json
-reports/cucumberReport.html

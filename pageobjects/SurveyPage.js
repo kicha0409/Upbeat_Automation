@@ -426,11 +426,10 @@ class SurveyPage {
     let totalQues = quesArray[1].split(" ")
     await page.waitForTimeout(2000)
     let ele = page.locator(el.survey.frmSurvey)
-    // let cName;
-    // cName = await ele.evaluate(element => element.className);
     let quesNo = 1
     let matQues = 1
     let previousQuesmatrix = false
+    let firstContinue = false
     do {
       // text area question
       if (quesNo === 1) {
@@ -445,8 +444,18 @@ class SurveyPage {
               console.log("Question type: Textarea")
             }
             // added else if
-            else if (await page.locator('//form[@id="form-desktop-view"]//div[contains(@id,"question")][1]//button').isVisible()) {
-              await page.locator('//form[@id="form-desktop-view"]//div[contains(@id,"question")][1]//button').click()
+            else if (
+              await page
+                .locator(
+                  '//form[@id="form-desktop-view"]//div[contains(@id,"question")][1]//button'
+                )
+                .isVisible()
+            ) {
+              await page
+                .locator(
+                  '//form[@id="form-desktop-view"]//div[contains(@id,"question")][1]//button'
+                )
+                .click()
               console.log("Question type: Textarea")
             }
           } catch (error) {
@@ -536,18 +545,36 @@ class SurveyPage {
               .locator(el.survey.btnmatrixNext)
               .innerText()
             if (btnName.includes("Continue")) {
-              await page
-                .locator(
-                  `(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`
-                )
-                .click()
+              if (!firstContinue) {
+                await page
+                  .locator(
+                    `(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`
+                  )
+                  .click()
+                firstContinue = true
+              } else {
+                await page
+                  .locator(
+                    `(//div[contains(@class,"matrix-pagination")])[2]//button[contains(@class,"matrix-next")]`
+                  )
+                  .click()
+              }
               matQues = matQues + 1
             } else
-              await page
-                .locator(
-                  `(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`
-                )
-                .click()
+              if (!firstContinue) {
+                await page
+                  .locator(
+                    `(//div[contains(@class,"matrix-pagination")])[${matQues}]//button[contains(@class,"matrix-next")]`
+                  )
+                  .click()
+                firstContinue = true
+              } else {
+                await page
+                  .locator(
+                    `(//div[contains(@class,"matrix-pagination")])[2]//button[contains(@class,"matrix-next")]`
+                  )
+                  .click()
+              }
           }
         }
         if (previousQuesmatrix) quesNo = 1
@@ -708,7 +735,7 @@ class SurveyPage {
       // Fill the response
       await page.fill(txtFeild, response)
     } else {
-      await page.fill(txtFeild, "PW Test - QA Comments");
+      await page.fill(txtFeild, "PW Test - QA Comments")
     }
   }
 
